@@ -479,7 +479,7 @@ export default function BuyPage() {
                     type="submit"
                     className="w-full py-4 bg-(--text-primary) text-white font-medium rounded-xl hover:bg-(--accent-hover) transition-all text-sm mt-2"
                   >
-                    Get OTP →
+                    Continue →
                   </button>
                 </form>
               </div>
