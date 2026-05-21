@@ -9,7 +9,6 @@ import {
 } from "firebase/auth";
 
 //
-import { auth } from "../../lib/firebase";
 import Loader from "../../components/reusable/Loader";
 import Field from "@/src/components/reusable/Field";
 import ErrorModal from "@/src/components/reusable/ErrorModal";
@@ -95,50 +94,6 @@ export default function BuyPage() {
   const [loading, setLoading] = useState<boolean>(false);
 
   const [errors, setErrors] = useState<Errors>({});
-  const [otp, setOtp] = useState<Array<string>>(["", "", "", "", "", ""]);
-
-  const [confirmationResult, setConfirmationResult] =
-    useState<ConfirmationResult | null>(null);
-
-  const setupRecaptcha = async () => {
-    if (typeof window === "undefined") return null;
-
-    if (window.recaptchaVerifier) {
-      return window.recaptchaVerifier;
-    }
-
-    window.recaptchaVerifier = new RecaptchaVerifier(
-      auth,
-      "recaptcha-container",
-      {
-        size: "invisible",
-      }
-    );
-
-    await window.recaptchaVerifier.render();
-
-    return window.recaptchaVerifier;
-  };
-
-  const handleOtpChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    index: number
-  ) => {
-    const value = e.target.value.replace(/\D/g, "");
-
-    if (!value) return;
-
-    const updatedOtp = [...otp];
-    updatedOtp[index] = value;
-
-    setOtp(updatedOtp);
-
-    const nextInput = e.target.nextElementSibling as HTMLInputElement | null;
-
-    if (nextInput) {
-      nextInput.focus();
-    }
-  };
 
   const validate = (): Errors => {
     const e: Errors = {};
@@ -204,11 +159,11 @@ export default function BuyPage() {
       setErrors(errs);
       return;
     }
-
-    sendOtp();
+    setOtpSent(true);
   };
 
   const saveUser = async () => {
+    setLoading(true);
     try {
       const res = await fetch("/api/user", {
         method: "POST",
@@ -242,58 +197,6 @@ export default function BuyPage() {
         title: "Something went wrong",
         message: "Try again after some time!",
       });
-    }
-  };
-
-  const sendOtp = async () => {
-    setLoading(true);
-    try {
-      await setupRecaptcha();
-      const appVerifier = window.recaptchaVerifier;
-
-      const result = await signInWithPhoneNumber(
-        auth,
-        `+91${form.phone}`,
-        appVerifier
-      );
-
-      if (result.verificationId) {
-        setConfirmationResult(result);
-        setOtpSent(true);
-      }
-    } catch (error) {
-      setError({
-        visible: true,
-        title: "Something went wrong",
-        message: "Try again after some time!",
-      });
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const verifyOtp = async () => {
-    setLoading(true);
-    try {
-      if (!confirmationResult) return;
-      const result = await confirmationResult.confirm(otp.join(""));
-      if (result.user) {
-        await saveUser();
-      } else {
-        setError({
-          visible: true,
-          title: "Verification failed",
-          message: "Wrong or invalid OTP",
-        });
-      }
-    } catch (error) {
-      setError({
-        visible: true,
-        title: "Something went wrong",
-        message: "Try again after some time!",
-      });
-      console.log(error);
     } finally {
       setLoading(false);
     }
@@ -357,60 +260,75 @@ export default function BuyPage() {
         <Loader />
       ) : otpSent ? (
         <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center px-4">
-          <div className="w-full max-w-md bg-white rounded-3xl p-7 animate-scale-in border border-(--border)">
+          <div className="w-full max-w-md bg-white rounded-3xl p-7 animate-scale-in border border-(--border) relative">
             {/* Top Icon */}
             <div className="w-14 h-14 rounded-2xl bg-(--badge-bg) flex items-center justify-center mx-auto mb-5 text-2xl">
-              🔐
+              🛍️
             </div>
 
             {/* Heading */}
-            <h2 className="text-2xl text-center text-(--text-primary) mb-2">
-              Verify your phone
+            <h2 className="text-2xl text-center text-(--text-primary) mb-1">
+              Confirm your order
             </h2>
-
-            <p className="text-sm text-center text-(--text-secondary) mb-8 leading-relaxed">
-              We've sent a 6 digit OTP to
+            <p className="text-sm text-center text-(--text-secondary) mb-6 leading-relaxed">
+              Please review your details before placing the order
               <br />
-              <span className="font-medium text-(--text-primary)">
-                +91 {form.phone}
-              </span>
+              This details will be shared with delivery partner.
             </p>
 
-            {/* OTP Inputs */}
-            <div className="flex items-center justify-center gap-3 mb-7">
-              {[...Array(6)].map((_, index) => (
-                <input
-                  key={index}
-                  type="text"
-                  maxLength={1}
-                  value={otp[index] || ""}
-                  onChange={(e) => handleOtpChange(e, index)}
-                  className="w-12 h-14 rounded-xl border border-(--border) bg-(--bg) text-center text-lg font-medium outline-none focus:border-(--text-primary) transition-all"
-                />
-              ))}
+            {/* Order Details Card */}
+            <div className="bg-(--bg) rounded-2xl border border-(--border) divide-y divide-(--border) mb-6">
+              {/* Name */}
+              <div className="flex items-center gap-3 px-4 py-3">
+                <span className="text-base">👤</span>
+                <div>
+                  <p className="text-xs text-(--text-secondary)">Name</p>
+                  <p className="text-sm font-medium text-(--text-primary)">
+                    {form.name}
+                  </p>
+                </div>
+              </div>
+
+              {/* Contact */}
+              <div className="flex items-center gap-3 px-4 py-3">
+                <span className="text-base">📞</span>
+                <div>
+                  <p className="text-xs text-(--text-secondary)">Contact</p>
+                  <p className="text-sm font-medium text-(--text-primary)">
+                    +91 {form.phone}
+                  </p>
+                </div>
+              </div>
+
+              {/* Address */}
+              <div className="flex items-center gap-3 px-4 py-3">
+                <span className="text-base">📍</span>
+                <div>
+                  <p className="text-xs text-(--text-secondary)">
+                    Delivery Address
+                  </p>
+                  <p className="text-sm font-medium text-(--text-primary)">
+                    {form.address}
+                  </p>
+                </div>
+              </div>
             </div>
 
-            {/* Verify Button */}
-            <button
-              type="button"
-              onClick={verifyOtp}
-              className="w-full py-4 bg-(--text-primary) text-white rounded-xl text-sm font-medium hover:bg-(--accent-hover) transition-all"
-            >
-              Verify OTP →
-            </button>
-
-            {/* Resend */}
-            <div className="mt-5 text-center">
-              <p className="text-sm text-(--text-secondary)">
-                Didn't receive OTP?
-              </p>
-
+            {/* Action Buttons */}
+            <div className="flex gap-3">
               <button
                 type="button"
-                onClick={sendOtp}
-                className="mt-1 text-sm font-medium text-(--text-primary) hover:underline"
+                onClick={() => setOtpSent(false)}
+                className="flex-1 py-4 rounded-xl text-sm font-medium border border-(--border) text-(--text-secondary) hover:bg-(--bg) transition-all"
               >
-                Resend OTP
+                Edit details
+              </button>
+              <button
+                type="button"
+                onClick={saveUser}
+                className="flex-1 py-4 bg-(--text-primary) text-white rounded-xl text-sm font-medium hover:bg-(--accent-hover) transition-all"
+              >
+                Confirm & Place order →
               </button>
             </div>
 

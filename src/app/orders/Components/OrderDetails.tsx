@@ -261,7 +261,7 @@ export default function OrderDetail({
 
       if (data.success) {
         if (action === "replacement" || action === "return") {
-          setOrder((prev : any) => ({
+          setOrder((prev: any) => ({
             ...prev,
             status:
               action === "return"
@@ -269,7 +269,7 @@ export default function OrderDetail({
                 : "replacement_initiated",
           }));
         } else {
-          setOrder((prev : any) => ({
+          setOrder((prev: any) => ({
             ...prev,
             reviewAdded: true,
           }));
@@ -462,19 +462,20 @@ export default function OrderDetail({
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[
                 !isOlderThan5Days(order.createdAt) &&
-                  order.status === "delivered" && {
+                  (order.status === "delivered" || order.status === "replacement_complete" )&& {
                     key: "return",
                     icon: "↩️",
                     label: "Request Return",
                     desc: "Get a refund for your order, valid for 5 days after delivery",
                   },
 
-                order.status === "delivered" && {
-                  key: "replacement",
-                  icon: "🔄",
-                  label: "Request Replacement",
-                  desc: "Get a new item delivered",
-                },
+                order.status !== "replacement_initiated" &&
+                  order.status !== "return_initiated" && {
+                    key: "replacement",
+                    icon: "🔄",
+                    label: "Request Replacement",
+                    desc: "Get a new item delivered",
+                  },
 
                 !order.reviewAdded && {
                   key: "review",
