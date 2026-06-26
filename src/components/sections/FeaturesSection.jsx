@@ -3,27 +3,8 @@
 const FEATURES = [
   {
     icon: "⚡",
-    title: "Dual Control Modes",
-    desc: (
-      <>
-        <span className="font-semibold text-(--text-primary)">
-          Motion Control
-        </span>
-        <br />
-        Move the cursor naturally by moving your hand in the air. No desk, mouse
-        pad, or flat surface required. Perfect for couches, beds, presentations,
-        and standing workspaces.
-        <br />
-        <br />
-        <span className="font-semibold text-(--text-primary)">
-          Joystick Precision
-        </span>
-        <br />
-        Switch instantly to joystick mode for controlled and tactile navigation.
-        Inspired by controller-style movement for users who prefer precision
-        handling.
-      </>
-    ),
+    title: "Motion Control",
+    desc: "Move the cursor naturally by moving your hand in the air. No desk, mouse pad, or flat surface required. Perfect for couches, beds, presentations, and standing workspaces.",
   },
   {
     title: "Works Anywhere",

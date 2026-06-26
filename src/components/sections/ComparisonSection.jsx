@@ -7,96 +7,51 @@ const ROWS = [
     airGrip: "Works completely in the air",
   },
   {
+    feature: "Device Compatibility",
+    traditional: "Varies by model",
+    airGrip: "Windows, macOS, Linux, Android, iPhone, iPad & tablets",
+  },
+  {
     feature: "Wireless Connectivity",
-    traditional: "Usually requires a USB dongle",
+    traditional: "Often requires a USB dongle",
     airGrip: "Direct Bluetooth connection",
   },
   {
     feature: "Comfort & Flexibility",
-    traditional: "Limited to desk usage",
-    airGrip: "Use on couches, beds, or while standing",
+    traditional: "Designed for desk use",
+    airGrip: "Use on couches, beds, while standing, or while traveling",
   },
   {
-    feature: "Control Modes",
-    traditional: "Single navigation style",
-    airGrip: "Gyroscope + joystick dual mode",
+    feature: "Presentation Control",
+    traditional: "Need to stay near the computer",
+    airGrip: "Control presentations from anywhere in the room",
   },
   {
-    feature: "Presentation Use",
-    traditional: "Need to stay near the laptop",
-    airGrip: "Control presentations from a distance",
+    feature: "Grip & Handling",
+    traditional: "Smooth plastic surface",
+    airGrip: "Textured surface for a comfortable grip",
   },
   {
     feature: "Portability",
-    traditional: "Needs flat working space",
-    airGrip: "Portable handheld design",
+    traditional: "Needs a flat working surface",
+    airGrip: "Compact handheld design that fits in your pocket",
   },
   {
-    feature: "Battery System",
-    traditional: "Replaceable batteries",
+    feature: "Battery",
+    traditional: "Often uses replaceable AA/AAA batteries",
     airGrip: "Rechargeable USB-C battery",
   },
   {
-    feature: "Gaming-Style Precision",
-    traditional: "Standard mouse movement only",
-    airGrip: "Joystick-based precision mode",
-  },
-  {
-    feature: "Cable Management",
-    traditional: "Can involve wires or dongles",
-    airGrip: "Minimal wireless setup",
+    feature: "Setup",
+    traditional: "May require a receiver or dongle",
+    airGrip: "Pair over Bluetooth in seconds",
   },
   {
     feature: "Freedom of Movement",
     traditional: "Best used while seated at a desk",
-    airGrip: "Control from almost anywhere",
+    airGrip: "Control your device from almost anywhere",
   },
 ];
-
-// const ROWS = [
-//   { feature: "Works Without a Surface", other: false, ours: true },
-//   { feature: "Free Shipping", other: false, ours: true },
-//   { feature: "COD Available", other: false, ours: true },
-//   { feature: "30-Day Money Back", other: false, ours: true },
-//   { feature: "Third-Party Tested", other: false, ours: true },
-//   { feature: "Eco-Friendly Packaging", other: false, ours: true },
-//   { feature: "Dedicated Support", other: true, ours: true },
-//   { feature: "Works in 7 Days", other: false, ours: true },
-//   { feature: "No Hidden Charges", other: false, ours: true },
-// ];
-
-const Check = () => (
-  <svg
-    width="18"
-    height="18"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="check-icon mx-auto"
-  >
-    <polyline points="20 6 9 17 4 12" />
-  </svg>
-);
-
-const Cross = () => (
-  <svg
-    width="18"
-    height="18"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="cross-icon mx-auto"
-  >
-    <line x1="18" y1="6" x2="6" y2="18" />
-    <line x1="6" y1="6" x2="18" y2="18" />
-  </svg>
-);
 
 export default function ComparisonSection() {
   return (
@@ -145,11 +100,9 @@ export default function ComparisonSection() {
                 <p className="text-sm text-(--text-primary)">{row.feature}</p>
               </div>
               <div className="p-4 text-center border-r border-(--border) flex items-center justify-center">
-                {/* {row.other ? <Check /> : <Cross />} */}
                 {row.traditional}
               </div>
               <div className="p-4 text-center bg-(--text-primary)/5 flex items-center justify-center">
-                {/* {row.ours ? <Check /> : <Cross />} */}
                 {row.airGrip}
               </div>
             </div>

@@ -90,7 +90,7 @@ body {
 
 .carousel-slide {
   flex-shrink: 0;
-  border-radius: 16px;
+  /* border-radius: 16px; */
   overflow: hidden;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   background: var(--border);
@@ -105,7 +105,7 @@ body {
 }
 
 .carousel-slide.center {
-  width: 360px;
+  width: 350px;
   height: 460px;
   opacity: 1;
   filter: none;

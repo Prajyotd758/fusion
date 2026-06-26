@@ -32,75 +32,77 @@ const FAQS = [
   {
     question: "How does AirGrip work?",
     answer:
-      "AirGrip uses a built-in gyroscope to track hand movement and control the cursor in the air. You can also switch to joystick mode for more controlled and precise navigation.",
+      "AirGrip uses a built-in gyroscope to detect your hand movements and move the cursor naturally in the air, giving you complete control without needing a desk.",
   },
   {
     question: "Do I need a desk or mouse pad?",
     answer:
-      "No. AirGrip is designed to work completely without a flat surface. You can use it while sitting on a couch, lying in bed, standing, or presenting.",
+      "No. AirGrip works completely in the air. You can comfortably use it while sitting on a couch, lying in bed, standing, traveling, or giving presentations.",
   },
   {
-    question: "How does it connect to my computer?",
+    question: "How does it connect to my device?",
     answer:
-      "AirGrip connects wirelessly using Bluetooth, so there’s no USB dongle required.",
+      "AirGrip connects wirelessly via Bluetooth. Simply pair it with your device like any standard Bluetooth mouse—no USB dongle or additional software required.",
   },
   {
     question: "Which devices are supported?",
     answer:
-      "AirGrip supports Windows, macOS, and Linux systems with Bluetooth connectivity.",
+      "AirGrip works with Windows, macOS, Linux, Android, iPhone (iOS), iPad, and most Bluetooth-enabled tablets.",
+  },
+  {
+    question: "Can I use AirGrip with my Android phone or iPhone?",
+    answer:
+      "Yes. AirGrip works as a Bluetooth mouse with compatible Android phones and iPhones that support external mouse input.",
+  },
+  {
+    question: "Does AirGrip work with tablets and iPads?",
+    answer:
+      "Yes. AirGrip is compatible with Android tablets and iPads, making it ideal for browsing, presentations, media control, and productivity on the go.",
   },
   {
     question: "How long does the battery last?",
     answer:
-      "The rechargeable battery can last up to 2 days on continuous usage depending on usage patterns.",
+      "The rechargeable battery lasts up to 2 days of continuous use, depending on usage patterns.",
   },
   {
     question: "Can I use it while charging?",
-    answer: "Yes. AirGrip supports use while charging through its USB-C port.",
-  },
-  {
-    question: "What is joystick mode?",
     answer:
-      "Joystick mode allows you to control the cursor using the built-in joystick instead of motion tracking, offering more precise and controller-style navigation.",
+      "Yes. You can continue using AirGrip while it's charging through the USB-C port.",
   },
   {
     question: "Is AirGrip good for presentations?",
     answer:
-      "Yes. AirGrip is designed for presentations, classrooms, and meetings where you want to control slides and the cursor while moving freely around the room.",
+      "Absolutely. AirGrip lets you control your cursor and slides while moving freely around the room, making it perfect for presentations, classrooms, meetings, and conferences.",
   },
   {
-    question: "Can gamers use AirGrip?",
+    question: "Can I use AirGrip for gaming?",
     answer:
-      "AirGrip includes a joystick precision mode inspired by controller-style navigation, which some users may prefer for casual gaming and media control.",
+      "AirGrip is suitable for casual games that support mouse input. It is not recommended for competitive or fast-paced gaming where ultra-low latency is essential.",
   },
   {
-    question: "Is this a prototype or a finished product?",
+    question: "Is there a warranty?",
     answer:
-      "Fusion AirGrip is currently being developed as a startup product focused on redefining how people interact with their computers.",
+      "Yes. Every AirGrip comes with a 1-year warranty covering manufacturing defects.",
   },
   {
-    question: "Is there any warranty for this product?",
-    answer: "Yes! 1 year warranty.",
-  },
-  {
-    question: "What if I receive a damaged or non-working product?",
+    question: "What if I receive a damaged or defective product?",
     answer:
-      "Every AirGrip device comes with a 1-year warranty. If your product arrives damaged or is not functioning properly, you can request a replacement unit at no additional cost. We’ll handle all replacement and shipping expenses.",
+      "If your AirGrip arrives damaged or isn't working properly, we'll replace it at no additional cost. All replacement shipping charges are covered by us.",
   },
   {
     question: "How long does shipping take?",
     answer:
-      "We dispatch all orders within 24 hours. Delivery typically takes 5–6 business days depending on your location across India.",
+      "Orders are dispatched within 24 hours. Delivery usually takes 5–6 business days across India, depending on your location.",
   },
   {
-    question: "Is Cash on Delivery available?",
+    question: "Is Cash on Delivery (COD) available?",
     answer:
-      'Yes! COD is available across most pin codes in India. Simply select "Cash on Delivery" at checkout.',
+      'Yes. Cash on Delivery is available for most serviceable pin codes across India. Simply select "Cash on Delivery" during checkout.',
   },
   {
-    question: "What if I'm not satisfied with the product?",
+    question: "What if I'm not satisfied with my purchase?",
     answer:
-      "We offer a 5-day no-questions-asked return policy. If you're not happy, reach out to us and we'll arrange a full refund.",
+      "We offer a 5-day no-questions-asked return policy. If you're not completely satisfied, contact us and we'll arrange a full refund.",
   },
 ];
 
