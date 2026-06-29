@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 const FEATURES = [
   {
@@ -40,7 +41,7 @@ export default function FeaturesSection() {
           <p className="text-xs font-medium tracking-widest text-[var(--text-muted)] uppercase mb-3">
             Why Choose Us
           </p>
-          <h2 className="  text-4xl md:text-5xl text-[var(--text-primary)] mb-4">
+          <h2 className="text-4xl md:text-5xl text-[var(--text-primary)] mb-4">
             Built different,
             <br />
             by design
@@ -50,14 +51,34 @@ export default function FeaturesSection() {
           </p>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
+        {/* Images */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+          <div className="relative aspect-[4/4] overflow-hidden rounded-2xl ">
+            <Image
+              src="/ctrl.png"
+              alt="Feature 1"
+              fill
+              className="object-contain"
+            />
+          </div>
+
+          <div className="relative aspect-[4/4] overflow-hidden rounded-2xl ">
+            <Image
+              src="/dim.png"
+              alt="Feature 2"
+              fill
+              className="object-contain"
+            />
+          </div>
+        </div>
+
+        {/* Features Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {FEATURES.map((f, i) => (
             <div
               key={i}
               className="p-7 rounded-2xl border border-[var(--border)] bg-[var(--bg)] hover:border-[var(--text-primary)] hover:bg-white hover:shadow-lg hover:shadow-black/5 transition-all duration-300 group"
             >
-              {/* <span className="text-3xl block mb-4">{f.icon}</span> */}
               <h3 className="font-medium text-[var(--text-primary)] mb-2 group-hover:text-black transition-colors">
                 {f.title}
               </h3>
