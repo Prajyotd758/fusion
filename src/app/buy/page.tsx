@@ -349,7 +349,7 @@ export default function BuyPage() {
               <Link href="/" className="  text-xl text-(--text-primary)">
                 <div className="flex items-center gap-2">
                   <Image src="/logo.png" alt="Logo" width={40} height={40} />
-                  Fusion
+                  arceus
                 </div>
               </Link>
               <span className="text-sm text-(--text-muted)">
@@ -506,7 +506,7 @@ export default function BuyPage() {
                   <div className="space-y-3 py-5 border-b border-(--border)">
                     <div className="flex justify-between text-sm">
                       <span className="text-(--text-secondary)">Price</span>
-                      <span className="text-(--text-primary)">₹1,499</span>
+                      <span className="text-(--text-primary)">₹999</span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-(--text-secondary)">Shipping</span>
@@ -524,7 +524,7 @@ export default function BuyPage() {
                       Total
                     </span>
                     <span className="font-semibold text-lg text-(--text-primary)">
-                      ₹1,499
+                      ₹999
                     </span>
                   </div>
                   <div className="mt-5 p-3 bg-(--badge-bg) rounded-xl">

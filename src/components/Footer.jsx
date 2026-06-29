@@ -166,7 +166,7 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-2">
               <Image src="/logo.png" alt="Logo" width={40} height={40} />
-              Fusion
+              arceus
             </div>
             <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
               {LINKS.map((link) => (

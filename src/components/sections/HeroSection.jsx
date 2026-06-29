@@ -59,10 +59,10 @@ export default function HeroSection() {
         {/* Badges + Price */}
         <div className="flex flex-wrap items-center justify-center gap-3 mb-12 animate-fade-up delay-200">
           <span className="text-3xl font-semibold text-(--text-primary)">
-            ₹1,499
+            ₹999
           </span>
           <span className="text-(--text-muted) line-through text-lg">
-            ₹1,999
+            ₹1,499
           </span>
           {/* <span className="px-3 py-1 rounded-full bg-green-50 border border-green-200 text-green-700 text-xs font-medium">
             43% OFF
@@ -152,7 +152,7 @@ export default function HeroSection() {
             href="/buy"
             className="px-8 py-4 bg-(--text-primary) text-white font-medium rounded-xl hover:bg-(--accent-hover) transition-all duration-200 hover:shadow-xl hover:shadow-black/15 hover:-translate-y-0.5 text-sm"
           >
-            Order Now — ₹1,499 →
+            Order Now — ₹999 →
           </Link>
           <a
             href="#features"

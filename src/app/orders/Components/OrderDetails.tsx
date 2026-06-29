@@ -132,8 +132,8 @@ export default function OrderDetail({
   const uploadToCloudinary = async (file: File | Blob) => {
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", "fusion");
-    formData.append("folder", "Fusion_user_shared_images");
+    formData.append("upload_preset", "arceus");
+    formData.append("folder", "arceus_user_shared_images");
 
     const res = await fetch(
       "https://api.cloudinary.com/v1_1/dgojbbk4m/image/upload",
@@ -150,8 +150,8 @@ export default function OrderDetail({
   const uploadVideoToCloudinary = async (file: File | Blob) => {
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", "fusion");
-    formData.append("folder", "Fusion_user_shared_videos");
+    formData.append("upload_preset", "arceus");
+    formData.append("folder", "arceus_user_shared_videos");
 
     const res = await fetch(
       "https://api.cloudinary.com/v1_1/dgojbbk4m/video/upload",
@@ -377,7 +377,7 @@ export default function OrderDetail({
           >
             <div className="flex items-center gap-2">
               <Image src="/logo.png" alt="Logo" width={40} height={40} />
-              Fusion
+              arceus
             </div>
           </Link>
 

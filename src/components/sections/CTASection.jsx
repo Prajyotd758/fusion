@@ -15,9 +15,9 @@ export default function CTASection() {
 
         {/* Pricing */}
         <div className="inline-flex items-center gap-3 mb-8">
-          <span className="text-4xl font-semibold text-white  ">₹1,499</span>
+          <span className="text-4xl font-semibold text-white  ">₹999</span>
           <div className="text-left">
-            <span className="block text-white/40 line-through text-sm">₹1,999</span>
+            <span className="block text-white/40 line-through text-sm">₹1,499</span>
             <span className="block text-green-400 text-xs font-medium">You save ₹500</span>
           </div>
         </div>
