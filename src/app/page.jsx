@@ -14,7 +14,7 @@ export default function Home() {
       <Navbar />
       <HeroSection />
       <FeaturesSection />
-      <VideoSection />
+      {/* <VideoSection /> */}
       <ComparisonSection />
       <FAQSection />
       <CTASection />
