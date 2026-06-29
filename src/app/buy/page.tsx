@@ -174,7 +174,7 @@ export default function BuyPage() {
           ...form,
           status: "in_process",
           quantity: 1,
-          amount: "1499",
+          amount: "999",
           product: "AirGrip",
           reviewAdded: false,
         }),
