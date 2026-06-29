@@ -15,7 +15,7 @@ const MODAL_CONTENT = {
             <span className="text-lg">📧</span>
             <div>
               <p className="font-medium text-(--text-primary)">Email</p>
-              <p>support@yourbrand.com</p>
+              <p>arceus.in.service@gmail.com</p>
             </div>
           </div>
         </div>
@@ -28,10 +28,10 @@ const MODAL_CONTENT = {
       <div className="text-sm text-(--text-secondary) space-y-3">
         <p>For any queries, complaints, or feedback, drop us an email at:</p>
         <a
-          href="mailto:support@yourbrand.com"
+          href="mailto:arceus.in.service@gmail.com"
           className="block font-medium text-(--text-primary) text-base"
         >
-          support@yourbrand.com
+          arceus.in.service@gmail.com
         </a>
         <p>We typically respond within 24 business hours.</p>
       </div>
