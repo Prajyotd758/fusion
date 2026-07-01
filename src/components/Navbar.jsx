@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { initiateCheckout } from "@/lib/metaPixel";
+import { initiateCheckout } from '../lib/metapixel';
 
 export default function Navbar() {
   return (
