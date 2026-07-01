@@ -7,6 +7,7 @@ import {
   signInWithPhoneNumber,
   ConfirmationResult,
 } from "firebase/auth";
+import { purchase } from '../../lib/metapixel';
 
 //
 import Loader from "../../components/reusable/Loader";
@@ -476,6 +477,7 @@ export default function BuyPage() {
                   </div>
 
                   <button
+                    onClick={() => purchase(999)}
                     type="submit"
                     className="w-full py-4 bg-(--text-primary) text-white font-medium rounded-xl hover:bg-(--accent-hover) transition-all text-sm mt-2"
                   >

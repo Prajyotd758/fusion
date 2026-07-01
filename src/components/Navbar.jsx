@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
+import { initiateCheckout } from "@/lib/metaPixel";
 
 export default function Navbar() {
   return (
@@ -19,7 +20,8 @@ export default function Navbar() {
 
         {/* Buy Now */}
         <div className="flex gap-2">
-          <Link
+          <Link 
+          onClick={()=> initiateCheckout()}
             href="/buy"
             className="px-5 max-sm:px-3 py-2.5 bg-(--text-primary) text-white max-sm:text-xs text-sm font-medium rounded-xl hover:bg-(--accent-hover) transition-all duration-200 hover:shadow-lg hover:shadow-black/10"
           >
