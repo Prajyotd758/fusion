@@ -87,14 +87,14 @@ export default function VideoSection() {
                 "Love the design. It stands out from other products and feels great in hand.",
             },
             {
-              rating: 3,
+              rating: 4,
               review:
-                "product quality is good but sometimes the mouse starts moving automatically,need to restart to work correctly again",
+                "product is good",
             },
             {
-              rating: 2,
+              rating: 3,
               review:
-                "works slowly when connected multiple bluetooth devices",
+                "works slow when connected multiple bluetooth devices",
             },
           ].map((review, index) => (
             <div

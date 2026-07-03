@@ -180,7 +180,7 @@ export default function Footer() {
               ))}
             </nav>
             <p className="text-xs text-(--text-muted)">
-              © {new Date().getFullYear()} Brand. All rights reserved.
+              © {new Date().getFullYear()} Arceus. All rights reserved.
             </p>
           </div>
         </div>
