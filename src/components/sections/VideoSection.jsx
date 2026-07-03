@@ -91,11 +91,6 @@ export default function VideoSection() {
               review:
                 "product is good",
             },
-            {
-              rating: 3,
-              review:
-                "works slow when connected multiple bluetooth devices",
-            },
           ].map((review, index) => (
             <div
               key={index}
