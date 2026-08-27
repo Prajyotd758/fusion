@@ -1,7 +1,13 @@
 "use client";
 import Image from "next/image";
 
-const FEATURES = [
+interface Feature {
+  icon?: string;
+  title: string;
+  desc: string;
+}
+
+const FEATURES: Feature[] = [
   {
     icon: "⚡",
     title: "Motion Control",
@@ -13,7 +19,7 @@ const FEATURES = [
   },
   {
     title: "Completely Wireless",
-    desc: "Powered by Bluetooth connectivity, AirGrip connects directly to your device without needing a USB dongle. Cleaner setup, fewer things to carry, and no more worrying about losing receivers.",
+    desc: "Powered by a plug-and-play USB dongle, AirGrip connects instantly to your device with no pairing required. Just plug it in and go — simple, reliable, and hassle-free.",
   },
   {
     title: "Rechargeable USB-C Battery",
@@ -25,7 +31,7 @@ const FEATURES = [
   },
   {
     title: "Built for Everyday Comfort",
-    desc: "Traditional mice need a flat surface. AirGrip doesn’t. Hold it naturally like a remote and control your system comfortably from almost anywhere.",
+    desc: "Traditional mice need a flat surface. AirGrip doesn't. Hold it naturally like a remote and control your system comfortably from almost anywhere.",
   },
 ];
 
@@ -33,27 +39,25 @@ export default function FeaturesSection() {
   return (
     <section
       id="features"
-      className="py-24 px-6 bg-white border-t border-[var(--border)]"
+      className="py-24 px-6 bg-white border-t border-(--border)"
     >
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
         <div className="text-center mb-16">
-          <p className="text-xs font-medium tracking-widest text-[var(--text-muted)] uppercase mb-3">
+          <p className="text-xs font-medium tracking-widest text-(--text-muted) uppercase mb-3">
             Why Choose Us
           </p>
-          <h2 className="text-4xl md:text-5xl text-[var(--text-primary)] mb-4">
+          <h2 className="text-4xl md:text-5xl text-(--text-primary) mb-4">
             Built different,
             <br />
             by design
           </h2>
-          <p className="text-[var(--text-secondary)] max-w-md mx-auto">
+          <p className="text-(--text-secondary) max-w-md mx-auto">
             Every detail is considered. Every feature is a reason to love it.
           </p>
         </div>
 
-        {/* Images */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
-          <div className="relative aspect-[4/4] overflow-hidden rounded-2xl ">
+          <div className="relative aspect-4/4 overflow-hidden rounded-2xl ">
             <Image
               src="/ctrl.png"
               alt="Feature 1"
@@ -62,7 +66,7 @@ export default function FeaturesSection() {
             />
           </div>
 
-          <div className="relative aspect-[4/4] overflow-hidden rounded-2xl ">
+          <div className="relative aspect-4/4 overflow-hidden rounded-2xl ">
             <Image
               src="/dim.png"
               alt="Feature 2"
@@ -72,17 +76,16 @@ export default function FeaturesSection() {
           </div>
         </div>
 
-        {/* Features Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {FEATURES.map((f, i) => (
             <div
               key={i}
-              className="p-7 rounded-2xl border border-[var(--border)] bg-[var(--bg)] hover:border-[var(--text-primary)] hover:bg-white hover:shadow-lg hover:shadow-black/5 transition-all duration-300 group"
+              className="p-7 rounded-2xl border border-(--border) bg-(--bg) hover:border-(--text-primary) hover:bg-white hover:shadow-lg hover:shadow-black/5 transition-all duration-300 group"
             >
-              <h3 className="font-medium text-[var(--text-primary)] mb-2 group-hover:text-black transition-colors">
+              <h3 className="font-medium text-(--text-primary) mb-2 group-hover:text-black transition-colors">
                 {f.title}
               </h3>
-              <p className="text-sm text-[var(--text-secondary)] leading-relaxed whitespace-pre-line">
+              <p className="text-sm text-(--text-secondary) leading-relaxed whitespace-pre-line">
                 {f.desc}
               </p>
             </div>

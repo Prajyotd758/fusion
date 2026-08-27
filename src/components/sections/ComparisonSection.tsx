@@ -1,6 +1,12 @@
 "use client";
 
-const ROWS = [
+interface ComparisonRow {
+  feature: string;
+  traditional: string;
+  airGrip: string;
+}
+
+const ROWS: ComparisonRow[] = [
   {
     feature: "Works Without a Surface",
     traditional: "Requires a desk or mouse pad",
@@ -13,8 +19,8 @@ const ROWS = [
   },
   {
     feature: "Wireless Connectivity",
-    traditional: "Often requires a USB dongle",
-    airGrip: "Direct Bluetooth connection",
+    traditional: "Often requires pairing setup",
+    airGrip: "Plug-and-play USB dongle connection",
   },
   {
     feature: "Comfort & Flexibility",
@@ -44,7 +50,7 @@ const ROWS = [
   {
     feature: "Setup",
     traditional: "May require a receiver or dongle",
-    airGrip: "Pair over Bluetooth in seconds",
+    airGrip: "Plug in the dongle and it's ready in seconds",
   },
   {
     feature: "Freedom of Movement",
@@ -57,7 +63,6 @@ export default function ComparisonSection() {
   return (
     <section className="py-24 px-6 bg-white border-t border-(--border)">
       <div className="max-w-4xl mx-auto">
-        {/* Header */}
         <div className="text-center mb-14">
           <p className="text-xs font-medium tracking-widest text-(--text-muted) uppercase mb-3">
             Comparison
@@ -69,9 +74,7 @@ export default function ComparisonSection() {
           </h2>
         </div>
 
-        {/* Table */}
         <div className="rounded-2xl border border-(--border) overflow-hidden">
-          {/* Table Header */}
           <div className="grid grid-cols-3 bg-(--bg)">
             <div className="p-5 border-r border-(--border)">
               <p className="text-xs font-medium text-(--text-muted) uppercase tracking-wide">
@@ -88,7 +91,6 @@ export default function ComparisonSection() {
             </div>
           </div>
 
-          {/* Rows */}
           {ROWS.map((row, i) => (
             <div
               key={i}

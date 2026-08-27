@@ -7,7 +7,7 @@ import {
   signInWithPhoneNumber,
   ConfirmationResult,
 } from "firebase/auth";
-import { purchase } from '../../lib/metapixel';
+import { purchase } from "../../lib/metapixel";
 
 //
 import Loader from "../../components/reusable/Loader";
@@ -498,7 +498,7 @@ export default function BuyPage() {
                     </div>
                     <div>
                       <p className="font-medium text-sm text-(--text-primary)">
-                        Your Product Name
+                        AirGrip V1
                       </p>
                       <p className="text-xs text-(--text-muted) mt-0.5">
                         Qty: 1

@@ -1,5 +1,6 @@
 'use client'
 import Navbar from '../components/Navbar'
+import Arceus from '../components/sections/ArceusUpcoming'
 import HeroSection from '../components/sections/HeroSection'
 import FeaturesSection from '../components/sections/FeaturesSection'
 import VideoSection from '../components/sections/VideoSection'
@@ -12,6 +13,7 @@ export default function Home() {
   return (
     <main>
       <Navbar />
+      <Arceus/>
       <HeroSection />
       <FeaturesSection />
       <VideoSection />

@@ -56,22 +56,6 @@ export default function HeroSection() {
           </p>
         </div>
 
-        {/* Badges + Price */}
-        {/* <div className="flex flex-wrap items-center justify-center gap-3 mb-12 animate-fade-up delay-200">
-          <span className="text-3xl font-semibold text-(--text-primary)">
-            ₹999
-          </span>
-          <span className="text-(--text-muted) line-through text-lg">
-            ₹1,499
-          </span>
-          <span className="px-3 py-1 rounded-full bg-(--badge-bg)] border border-(--border) text-(--badge-text)] text-xs font-medium">
-            💵 COD Available
-          </span>
-          <span className="px-3 py-1 rounded-full bg-(--badge-bg)] border border-(--border) text-(--badge-text)] text-xs font-medium">
-            🚚 Free Shipping
-          </span>
-        </div> */}
-
         {/* Carousel */}
         <div
           className="flex items-center justify-center gap-5 mb-12"

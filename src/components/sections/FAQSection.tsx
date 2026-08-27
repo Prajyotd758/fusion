@@ -1,34 +1,12 @@
 "use client";
 import { useState } from "react";
 
-// const FAQS = [
-//   {
-//     q: "How long does shipping take?",
-//     a: "We dispatch all orders within 24 hours. Delivery typically takes 5–6 business days depending on your location across India.",
-//   },
-//   {
-//     q: "Is Cash on Delivery available?",
-//     a: 'Yes! COD is available across most pin codes in India. Simply select "Cash on Delivery" at checkout.',
-//   },
-//   {
-//     q: "What if I'm not satisfied with the product?",
-//     a: "We offer a 5-day no-questions-asked return policy. If you're not happy, reach out to us and we'll arrange a full refund.",
-//   },
-//   {
-//     q: "Are the ingredients safe?",
-//     a: "Absolutely. All ingredients are 100% natural, clinically tested, and third-party verified for safety and purity. No harmful chemicals.",
-//   },
-//   {
-//     q: "How do I track my order?",
-//     a: "Once your order ships, you'll receive a tracking link via email and SMS. You can check your delivery status anytime.",
-//   },
-//   {
-//     q: "Can I order multiple units?",
-//     a: "Yes! You can update the quantity during checkout. Bulk orders may also qualify for additional discounts — reach out to us.",
-//   },
-// ];
+interface FAQ {
+  question: string;
+  answer: string;
+}
 
-const FAQS = [
+const FAQS: FAQ[] = [
   {
     question: "How does AirGrip work?",
     answer:
@@ -42,17 +20,17 @@ const FAQS = [
   {
     question: "How does it connect to my device?",
     answer:
-      "AirGrip connects wirelessly via Bluetooth. Simply pair it with your device like any standard Bluetooth mouse—no USB dongle or additional software required.",
+      "AirGrip connects wirelessly using a plug-and-play USB dongle. Simply plug it into your device and it's ready to use instantly—no pairing or additional software required.",
   },
   {
     question: "Which devices are supported?",
     answer:
-      "AirGrip works with Windows, macOS, Linux, Android, iPhone (iOS), iPad, and most Bluetooth-enabled tablets.",
+      "AirGrip works with Windows, macOS, Linux, Android, iPhone (iOS), iPad, and most tablets with a USB or USB-C port.",
   },
   {
     question: "Can I use AirGrip with my Android phone or iPhone?",
     answer:
-      "Yes. AirGrip works as a Bluetooth mouse with compatible Android phones and iPhones that support external mouse input.",
+      "Yes. AirGrip works with compatible Android phones and iPhones that support external mouse input via a USB or USB-C dongle connection.",
   },
   {
     question: "Does AirGrip work with tablets and iPads?",
@@ -107,7 +85,7 @@ const FAQS = [
 ];
 
 export default function FAQSection() {
-  const [open, setOpen] = useState(null);
+  const [open, setOpen] = useState<number | null>(null);
 
   return (
     <section className="py-24 px-6 bg-(--bg) border-t border-(--border)">
