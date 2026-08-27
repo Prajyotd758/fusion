@@ -23,13 +23,13 @@ export default function Navbar() {
             href="/buy"
             className="px-5 max-sm:px-3 py-2.5 bg-(--text-primary) text-white max-sm:text-xs text-sm font-medium rounded-xl hover:bg-(--accent-hover) transition-all duration-200 hover:shadow-lg hover:shadow-black/10"
           >
-            Buy Now →
+            Buy AirGrip V1
           </Link>
           <Link
             href="/orders"
             className="px-5 py-2.5 bg-(--text-primary) max-sm:px-3 max-sm:text-xs text-white text-sm font-medium rounded-xl hover:bg-(--accent-hover) transition-all duration-200 hover:shadow-lg hover:shadow-black/10"
           >
-            Order status →
+            Order status
           </Link>
 
           {/* <a

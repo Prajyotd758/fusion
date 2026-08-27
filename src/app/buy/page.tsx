@@ -499,6 +499,8 @@ export default function BuyPage() {
                     <div>
                       <p className="font-medium text-sm text-(--text-primary)">
                         AirGrip V1
+                        <br />A precise air mouse — no AI. Our AI-powered
+                        AirGrip V2 is coming soon.
                       </p>
                       <p className="text-xs text-(--text-muted) mt-0.5">
                         Qty: 1
