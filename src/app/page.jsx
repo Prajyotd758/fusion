@@ -14,7 +14,7 @@ export default function Home() {
     <main>
       <Navbar />
       <Arceus/>
-      <HeroSection />
+      {/* <HeroSection /> */}
       <FeaturesSection />
       <VideoSection />
       <ComparisonSection />

@@ -1,19 +1,34 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap");
 @import "tailwindcss";
 
-
 :root {
-  --bg: #fafaf9;
-  --surface: #ffffff;
-  --border: #e8e5e0;
-  --text-primary: #1a1814;
-  --text-secondary: #6b6660;
-  --text-muted: #a09a94;
-  --accent: #1a1814;
-  --accent-hover: #333;
-  --badge-bg: #f0ede8;
-  --badge-text: #5a5550;
-  --radius: 12px;
+  --bg-primary: #07090d;
+  --bg-secondary: #0b0f15;
+  --bg-elevated: #101722;
+  --bg-glass: rgba(15, 22, 32, 0.72);
+
+  --text-primary: #f4f6fa;
+  --text-secondary: #a0a9b8;
+  --text-muted: #687487;
+
+  --accent-blue: #42bfff;
+  --accent-blue-bright: #68d0ff;
+  --accent-violet: #9b72ff;
+  --accent-gradient: linear-gradient(100deg, #42bfff, #568cff, #9b72ff);
+
+  --border-subtle: rgba(180, 205, 235, 0.14);
+  --border-highlight: rgba(66, 191, 255, 0.45);
+  --status-success: #42e6aa;
+
+  --gutter: clamp(24px, 7.2vw, 120px);
+  --section-space: clamp(96px, 12vw, 180px);
+
+  /* legacy aliases so unmigrated components don't break */
+  --bg: var(--bg-primary);
+  --surface: var(--bg-elevated);
+  --border: var(--border-subtle);
+  --accent: var(--text-primary);
+  --accent-hover: var(--accent-blue-bright);
 }
 
 * {
@@ -25,118 +40,213 @@ html {
 }
 
 body {
-  background: var(--bg);
+  background: var(--bg-primary);
   color: var(--text-primary);
-  font-family: 'DM Sans', sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
-.font-serif {
-  font-family: 'Instrument Serif', serif;
+:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 3px;
 }
 
-/* Animations */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
+/* Shared utilities */
+.container-arceus {
+  max-width: 1600px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
 }
 
-@keyframes slideLeft {
-  from { transform: translateX(60px); opacity: 0; }
-  to   { transform: translateX(0);    opacity: 1; }
+.text-gradient {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-@keyframes slideRight {
-  from { transform: translateX(-60px); opacity: 0; }
-  to   { transform: translateX(0);     opacity: 1; }
+.text-fade {
+  background: linear-gradient(180deg, #fff 30%, #9aa3b2);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-@keyframes scaleIn {
-  from { transform: scale(0.92); opacity: 0; }
-  to   { transform: scale(1);    opacity: 1; }
-}
-
-@keyframes pulse-soft {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.6; }
-}
-
-.animate-fade-up   { animation: fadeUp   0.7s ease both; }
-.animate-fade-in   { animation: fadeIn   0.7s ease both; }
-.animate-slide-left  { animation: slideLeft  0.7s ease both; }
-.animate-slide-right { animation: slideRight 0.7s ease both; }
-.animate-scale-in  { animation: scaleIn  0.7s ease both; }
-
-.delay-100 { animation-delay: 0.1s; }
-.delay-200 { animation-delay: 0.2s; }
-.delay-300 { animation-delay: 0.3s; }
-.delay-400 { animation-delay: 0.4s; }
-.delay-500 { animation-delay: 0.5s; }
-.delay-600 { animation-delay: 0.6s; }
-
-/* Carousel */
-.carousel-track {
-  display: flex;
+/* Gradient-border button */
+.btn-primary {
+  position: relative;
+  display: inline-flex;
   align-items: center;
-  gap: 20px;
-  transition: none;
+  gap: 12px;
+  padding: 16px 32px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary);
+  background: linear-gradient(var(--bg-primary), var(--bg-primary)) padding-box,
+    var(--accent-gradient) border-box;
+  border: 1px solid transparent;
+  box-shadow: 0 0 24px rgba(66, 191, 255, 0.12);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
 
-.carousel-slide {
-  flex-shrink: 0;
-  /* border-radius: 16px; */
-  overflow: hidden;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  background: var(--border);
+.btn-primary:hover:not(:disabled) {
+  box-shadow: 0 0 32px rgba(86, 140, 255, 0.28);
+  transform: translateY(-1px);
 }
 
-.carousel-slide.side {
-  width: 260px;
-  height: 340px;
-  opacity: 0.55;
-  filter: blur(1px);
-  transform: scale(0.92);
+.btn-primary:disabled {
+  opacity: 0.6;
 }
 
-.carousel-slide.center {
-  width: 350px;
-  height: 460px;
-  opacity: 1;
-  filter: none;
-  transform: scale(1);
-  box-shadow: 0 24px 64px rgba(0,0,0,0.12);
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--text-muted);
+  transition: color 0.25s ease;
 }
 
-/* FAQ */
-.faq-item summary {
-  cursor: pointer;
-  list-style: none;
+.btn-ghost:hover {
+  color: var(--text-primary);
 }
-.faq-item summary::-webkit-details-marker { display: none; }
 
-/* Comparison */
-.check-icon { color: #1a1814; }
-.cross-icon { color: #c8c4be; }
-
-/* Modal backdrop */
+/* Modal */
 .modal-backdrop {
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,0.45);
-  backdrop-filter: blur(4px);
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 5, 8, 0.7);
+  backdrop-filter: blur(8px);
   z-index: 50;
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: fadeIn 0.2s ease;
+}
+
+/* Legacy (FAQ) */
+.faq-item summary {
+  cursor: pointer;
+  list-style: none;
+}
+.faq-item summary::-webkit-details-marker {
+  display: none;
 }
 
 /* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-subtle);
+  border-radius: 3px;
+}
+
+/*
+  Hide the intro targets in the server-rendered HTML. The data-pending
+  attribute is removed in useLayoutEffect only AFTER GSAP has applied its
+  initial .from() states, preventing a visible pre-animation frame.
+  No timeout is used: the timeout could reveal content before GSAP is ready.
+*/
+@media (prefers-reduced-motion: no-preference) {
+  [data-pending] [data-char],
+  [data-pending] [data-grad],
+  [data-pending] [data-fade],
+  [data-pending] [data-eyebrow],
+  [data-pending] [data-video-in],
+  [data-pending] [data-strip-line],
+  [data-pending] [data-strip-txt],
+  [data-pending] [data-line],
+  [data-pending] [data-logo],
+  [data-pending] [data-logo-text],
+  [data-pending] [data-link],
+  [data-pending] [data-btn] {
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.btn-primary {
+  background: linear-gradient(var(--bg-primary), var(--bg-primary)) padding-box,
+    conic-gradient(from var(--angle), #42bfff, #568cff, #9b72ff, #42bfff)
+      border-box;
+  animation: spin-angle 4s linear infinite;
+}
+
+@keyframes spin-angle {
+  to {
+    --angle: 360deg;
+  }
+}
+
+.text-shimmer {
+  background: linear-gradient(
+    100deg,
+    #42bfff,
+    #68d0ff,
+    #9b72ff,
+    #c084ff,
+    #568cff,
+    #42bfff
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: -300% 0;
+  }
+}
+
+.nav-scan {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--accent-blue-bright),
+    transparent
+  );
+  animation: nav-scan 5s cubic-bezier(0.6, 0, 0.2, 1) infinite;
+}
+
+@keyframes nav-scan {
+  from {
+    transform: translateX(-30vw);
+  }
+  to {
+    transform: translateX(110vw);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary,
+  .text-shimmer,
+  .nav-scan {
+    animation: none;
+  }
+}
