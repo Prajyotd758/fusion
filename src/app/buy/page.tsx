@@ -175,7 +175,7 @@ export default function BuyPage() {
           ...form,
           status: "in_process",
           quantity: 1,
-          amount: "999",
+          amount: "1499",
           product: "AirGrip",
           reviewAdded: false,
         }),
@@ -477,7 +477,7 @@ export default function BuyPage() {
                   </div>
 
                   <button
-                    onClick={() => purchase(999)}
+                    onClick={() => purchase(1499)}
                     type="submit"
                     className="w-full py-4 bg-(--text-primary) text-white font-medium rounded-xl hover:bg-(--accent-hover) transition-all text-sm mt-2"
                   >
@@ -510,7 +510,7 @@ export default function BuyPage() {
                   <div className="space-y-3 py-5 border-b border-(--border)">
                     <div className="flex justify-between text-sm">
                       <span className="text-(--text-secondary)">Price</span>
-                      <span className="text-(--text-primary)">₹999</span>
+                      <span className="text-(--text-primary)">₹1499</span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-(--text-secondary)">Shipping</span>
@@ -528,7 +528,7 @@ export default function BuyPage() {
                       Total
                     </span>
                     <span className="font-semibold text-lg text-(--text-primary)">
-                      ₹999
+                      ₹1499
                     </span>
                   </div>
                   <div className="mt-5 p-3 bg-(--badge-bg) rounded-xl">

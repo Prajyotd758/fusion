@@ -101,7 +101,7 @@ export default function OrderLookup({ onFound }: OrderLookupProps) {
 
               <input
                 type="tel"
-                placeholder="9999999999"
+                placeholder="1499149914999"
                 maxLength={10}
                 value={form}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {

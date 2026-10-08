@@ -133,7 +133,7 @@ export default function HeroSection() {
             href="/buy"
             className="px-8 py-4 bg-(--text-primary) text-white font-medium rounded-xl hover:bg-(--accent-hover) transition-all duration-200 hover:shadow-xl hover:shadow-black/15 hover:-translate-y-0.5 text-sm"
           >
-            Order Now — ₹999 →
+            Order Now — ₹1499 →
           </Link>
           <a
             href="#features"

@@ -3,6 +3,7 @@ import { useState, useRef, useEffect, useLayoutEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { magnetic } from "../../lib/magnetic";
+import GlowButton from "../GlobalButton";
 
 if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 const useIso = typeof window !== "undefined" ? useLayoutEffect : useEffect;
@@ -31,7 +32,7 @@ function Particles() {
     let w = 0,
       h = 0,
       raf = 0;
-    const m = { x: -999, y: -999 };
+    const m = { x: -1499, y: -1499 };
     const size = () => {
       w = c.offsetWidth;
       h = c.offsetHeight;
@@ -40,7 +41,7 @@ function Particles() {
       g.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
     size();
-    const n = window.innerWidth < 768 ? 28 : 70;
+    const n = window.innerWidth < 768 ? 40 : 300;
     const p = Array.from({ length: n }, () => ({
       x: Math.random() * w,
       y: Math.random() * h,
@@ -129,16 +130,29 @@ export default function Arceus() {
 
     const ctx = gsap.context(() => {
       // Intro
-      gsap
-        .timeline({ defaults: { ease: "expo.out" } })
+      const intro = gsap.timeline({
+        paused: true,
+        defaults: { ease: "expo.out" },
+      });
+
+      intro
         .from(
           "[data-video-in]",
-          { opacity: 0, scale: 1.3, filter: "blur(30px)", duration: 2.2 },
+          {
+            opacity: 0,
+            scale: 1.3,
+            filter: "blur(30px)",
+            duration: 2.2,
+          },
           0
         )
         .from(
           "[data-eyebrow]",
-          { clipPath: "inset(0 100% 0 0)", duration: 1.1, ease: "expo.inOut" },
+          {
+            clipPath: "inset(0 100% 0 0)",
+            duration: 1.1,
+            ease: "expo.inOut",
+          },
           0.1
         )
         .from(
@@ -187,9 +201,10 @@ export default function Arceus() {
         )
         .from("[data-strip-txt]", { opacity: 0, y: 10, stagger: 0.1 }, 1.2);
 
-      // Important: initialize all GSAP starting states before releasing CSS hiding.
-      // useLayoutEffect runs before the browser paints the hydrated page.
+      // Establish the animation's initial states before revealing the content.
+      intro.progress(0).pause();
       section.removeAttribute("data-pending");
+      intro.play();
 
       // Scroll: video drifts + zooms, copy lifts away
       const st = {
@@ -386,7 +401,7 @@ export default function Arceus() {
               disabled={interested}
               className="btn-primary"
             >
-              {interested ? "Thanks — we'll notify you ✓" : "I'm Interested"}
+              {interested ? "Thanks — we'll notify you ✓" : "Buy now"}
               {!interested && <span aria-hidden>→</span>}
             </button>
 

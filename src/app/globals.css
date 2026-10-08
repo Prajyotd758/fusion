@@ -159,28 +159,27 @@ body {
   initial .from() states, preventing a visible pre-animation frame.
   No timeout is used: the timeout could reveal content before GSAP is ready.
 */
-@media (prefers-reduced-motion: no-preference) {
-  [data-pending] [data-char],
-  [data-pending] [data-grad],
-  [data-pending] [data-fade],
-  [data-pending] [data-eyebrow],
-  [data-pending] [data-video-in],
-  [data-pending] [data-strip-line],
-  [data-pending] [data-strip-txt],
-  [data-pending] [data-line],
-  [data-pending] [data-logo],
-  [data-pending] [data-logo-text],
-  [data-pending] [data-link],
-  [data-pending] [data-btn] {
-    visibility: hidden;
-  }
+/* Hide animated content before GSAP initializes. */
+[data-pending] [data-char],
+[data-pending] [data-grad],
+[data-pending] [data-fade],
+[data-pending] [data-eyebrow],
+[data-pending] [data-video-in],
+[data-pending] [data-strip-line],
+[data-pending] [data-strip-txt],
+[data-pending] [data-line],
+[data-pending] [data-logo],
+[data-pending] [data-logo-text],
+[data-pending] [data-link],
+[data-pending] [data-btn] {
+  visibility: hidden;
 }
 
-@media (prefers-reduced-motion: reduce) {
+/* @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-}
+} */
 
 @property --angle {
   syntax: "<angle>";
@@ -243,10 +242,299 @@ body {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
+/* @media (prefers-reduced-motion: reduce) {
   .btn-primary,
   .text-shimmer,
   .nav-scan {
     animation: none;
   }
+} */
+
+@property --mx {
+  syntax: "<length-percentage>";
+  initial-value: 50%;
+  inherits: false;
+}
+@property --my {
+  syntax: "<length-percentage>";
+  initial-value: 50%;
+  inherits: false;
+}
+
+.glow-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 18px 36px;
+  border-radius: 1499px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary);
+  background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.07),
+      rgba(255, 255, 255, 0.01)
+    ),
+    var(--bg-glass);
+  backdrop-filter: blur(14px);
+  box-shadow: inset 0 0 0 1px var(--border-subtle),
+    0 10px 30px rgba(0, 0, 0, 0.45);
+  transition: --mx 0.35s ease-out, --my 0.35s ease-out, box-shadow 0.5s ease,
+    transform 0.4s ease;
+}
+.glow-btn:hover,
+.glow-btn:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: inset 0 0 0 1px rgba(200, 230, 255, 0.55),
+    0 0 60px rgba(66, 191, 255, 0.28), 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+.glow-btn:disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.glow-btn:hover .glow-layer,
+.glow-btn:focus-visible .glow-layer,
+.glow-btn:active .glow-layer {
+  opacity: 1;
+}
+
+.glow-btn:hover span.relative {
+  text-shadow: 0 0 18px rgba(255, 255, 255, 0.6);
+}
+
+/* chromatic rim */
+.glow-btn {
+  box-shadow: 0 0 24px rgba(66, 191, 255, 0.12), 0 10px 30px rgba(0, 0, 0, 0.45); /* replaces the inset border */
+  background: var(--bg-primary);
+}
+.glow-btn:hover,
+.glow-btn:focus-visible {
+  box-shadow: 0 0 40px rgba(86, 140, 255, 0.3), 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+.glow-layer {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
+  filter: blur(14px) saturate(1.3);
+  transition: opacity 0.5s ease;
+  background: radial-gradient(
+      90px 70px at var(--mx) var(--my),
+      rgba(255, 255, 255, 0.95),
+      transparent 70%
+    ),
+    radial-gradient(
+      120px 60px at calc(100% - var(--mx)) 115%,
+      rgba(66, 191, 255, 0.95),
+      transparent 70%
+    ),
+    radial-gradient(
+      130px 60px at var(--mx) 125%,
+      rgba(155, 114, 255, 0.95),
+      transparent 70%
+    ),
+    radial-gradient(
+      110px 60px at calc(var(--mx) * 0.5 + 25%) 115%,
+      rgba(255, 255, 255, 0.85),
+      transparent 70%
+    ),
+    radial-gradient(
+      180px 40px at var(--mx) -10%,
+      rgba(104, 208, 255, 0.7),
+      transparent 70%
+    );
+}
+.glow-btn:hover .glow-layer,
+.glow-btn:focus-visible .glow-layer {
+  opacity: 1;
+}
+
+/* same rotating gradient border as .btn-primary */
+.glow-rim {
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: conic-gradient(
+    from var(--angle),
+    #42bfff,
+    #568cff,
+    #9b72ff,
+    #42bfff
+  );
+  animation: spin-angle 4s linear infinite;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+}
+
+.glow-btn:hover .glow-rim {
+  opacity: 1;
+}
+
+/* @media (prefers-reduced-motion: reduce) {
+  .glow-btn,
+  .glow-layer,
+  .glow-rim {
+    transition: none;
+  }
+} */
+
+.feat-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  border: 1px solid var(--border-subtle);
+  background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.035),
+      transparent 45%
+    ),
+    var(--bg-secondary);
+  transform-style: preserve-3d;
+}
+.feat-card::before,
+.feat-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+/* cursor-following gradient border */
+.feat-card::before {
+  padding: 1px;
+  background: radial-gradient(
+    280px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(104, 208, 255, 0.95),
+    rgba(155, 114, 255, 0.55) 40%,
+    transparent 70%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+}
+/* cursor-following inner light */
+.feat-card::after {
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(66, 191, 255, 0.11),
+    transparent 60%
+  );
+}
+.feat-card:hover::before,
+.feat-card:hover::after {
+  opacity: 1;
+}
+
+.feat-bar {
+  height: 1px;
+  background: var(--accent-gradient);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.8s cubic-bezier(0.7, 0, 0.2, 1);
+}
+.feat-card:hover .feat-bar {
+  transform: scaleX(1);
+}
+.feat-card:hover .feat-icon {
+  color: var(--accent-blue-bright);
+  filter: drop-shadow(0 0 10px rgba(66, 191, 255, 0.7));
+}
+.feat-icon {
+  transition: color 0.4s, filter 0.4s;
+}
+
+/* comparison section */
+/* rotating gradient frame (uses --angle / spin-angle from the button styles) */
+.cmp-wrap {
+  position: relative;
+  padding: 1px;
+  border-radius: 24px;
+  background: conic-gradient(
+    from var(--angle),
+    rgba(66, 191, 255, 0.7),
+    rgba(255, 255, 255, 0.04) 25%,
+    rgba(155, 114, 255, 0.7) 50%,
+    rgba(255, 255, 255, 0.04) 75%,
+    rgba(66, 191, 255, 0.7)
+  );
+  animation: spin-angle 6s linear infinite;
+  box-shadow: 0 0 90px rgba(66, 191, 255, 0.08);
+}
+.cmp-inner {
+  position: relative;
+  overflow: hidden;
+  border-radius: 23px;
+  background: var(--bg-secondary);
+}
+
+/* cursor-following row light */
+.cmp-row {
+  position: relative;
+  border-top: 1px solid var(--border-subtle);
+}
+.cmp-row::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) 50%,
+    rgba(66, 191, 255, 0.1),
+    transparent 65%
+  );
+}
+.cmp-row:hover::after {
+  opacity: 1;
+}
+.cmp-row:hover .cmp-feature {
+  color: var(--accent-blue-bright);
+}
+.cmp-feature {
+  transition: color 0.3s ease;
+}
+
+/* strikethrough that wraps across lines and can be animated */
+.cmp-strike {
+  --s: 0%;
+  background: linear-gradient(currentColor, currentColor) no-repeat 0 58% /
+    var(--s) 1px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* airGrip column tint + glowing edge */
+.cmp-hl {
+  background: linear-gradient(
+    90deg,
+    rgba(66, 191, 255, 0.07),
+    rgba(155, 114, 255, 0.05)
+  );
+}
+@media (min-width: 1024px) {
+  .cmp-hl {
+    box-shadow: inset 1px 0 0 rgba(66, 191, 255, 0.25);
+  }
+}
+
+/* faq section  */
+.feat-card.faq-open::before {
+  opacity: 1;
+}
+.feat-card.faq-open {
+  box-shadow: 0 0 50px rgba(66, 191, 255, 0.08);
+}
+.feat-card.faq-open .feat-bar {
+  transform: scaleX(1);
 }
