@@ -287,7 +287,7 @@ export default function Navbar() {
               onClick={() => initiateCheckout()}
               className={pill}
             >
-              Buy AirGrip V1
+              Buy AirGrip
               <span className="transition-transform duration-300 group-hover:translate-x-1">
                 →
               </span>
@@ -358,7 +358,7 @@ export default function Navbar() {
                   setOpen(false);
                 }}
               >
-                Buy AirGrip V1 →
+                Buy AirGrip →
               </Link>
             </div>
             <div className="overflow-hidden">

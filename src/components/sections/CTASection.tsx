@@ -9,7 +9,7 @@ if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 const useIso = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 const PRICE = 1499;
-const MRP = 1499; // from your file; likely should be a higher number
+const MRP = 1999; // from your file; likely should be a higher number
 const SAVE = 500;
 
 const BADGES = [

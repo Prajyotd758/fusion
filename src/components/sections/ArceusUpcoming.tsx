@@ -41,7 +41,7 @@ function Particles() {
       g.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
     size();
-    const n = window.innerWidth < 768 ? 40 : 300;
+    const n = window.innerWidth < 768 ? 40 : 150;
     const p = Array.from({ length: n }, () => ({
       x: Math.random() * w,
       y: Math.random() * h,

@@ -538,3 +538,77 @@ body {
 .feat-card.faq-open .feat-bar {
   transform: scaleX(1);
 }
+
+input,
+textarea,
+select {
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+  -webkit-text-fill-color: var(--text-primary);
+  caret-color: var(--accent-blue-bright);
+  color-scheme: dark;
+}
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-muted);
+  -webkit-text-fill-color: var(--text-muted);
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text-primary);
+  box-shadow: 0 0 0 1000px var(--bg-secondary) inset;
+  transition: background-color 9999s ease-out;
+}
+
+.fld {
+  position: relative;
+  border-radius: 12px;
+  background: var(--border-subtle);
+  padding: 1px;
+  transition: box-shadow 0.4s ease;
+}
+.fld::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--angle),
+    #42bfff,
+    #568cff,
+    #9b72ff,
+    #42bfff
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  animation: spin-angle 3s linear infinite;
+}
+.fld:focus-within::before {
+  opacity: 1;
+}
+.fld:focus-within {
+  box-shadow: 0 0 36px rgba(66, 191, 255, 0.18);
+}
+.fld.err::before {
+  background: #f87171;
+  opacity: 1;
+  animation: none;
+}
+.fld-light {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+  background: radial-gradient(
+    160px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(104, 208, 255, 0.14),
+    transparent 70%
+  );
+}
+.fld:hover .fld-light {
+  opacity: 1;
+}
