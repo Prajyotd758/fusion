@@ -424,7 +424,7 @@ export default function Arceus() {
           data-strip-txt
           className="eyebrow whitespace-nowrap text-(--text-muted)"
         >
-          Hardware + AI = A Smarter You
+          Hardware + AI = Work Made Easier
         </span>
         <span data-strip-line className="h-px flex-1 bg-(--border-subtle)" />
         <span
@@ -438,51 +438,6 @@ export default function Arceus() {
           03
         </span>
       </div>
-
-      {/* Modal */}
-      {showForm && (
-        <div className="modal-backdrop px-6" onClick={() => setShowForm(false)}>
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="notify-title"
-            onClick={(e) => e.stopPropagation()}
-            className="modal-card relative w-full max-w-sm rounded-2xl border border-(--border-subtle) bg-(--bg-elevated) p-8 shadow-2xl"
-          >
-            <button
-              onClick={() => setShowForm(false)}
-              aria-label="Close"
-              className="absolute right-4 top-4 text-(--text-muted) hover:text-(--text-primary)"
-            >
-              ✕
-            </button>
-            <h3
-              id="notify-title"
-              className="mb-2 text-xl font-medium tracking-tight"
-            >
-              Stay in the loop
-            </h3>
-            <p className="mb-5 text-sm text-(--text-secondary)">
-              Enter your email and we&apos;ll notify you when it launches.
-            </p>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
-              className="mb-2 w-full rounded-xl border border-(--border-subtle) bg-(--bg-secondary) px-4 py-3 text-sm text-(--text-primary) outline-none placeholder:text-(--text-muted) focus:border-(--border-highlight)"
-            />
-            {error && <p className="mb-2 text-xs text-red-400">{error}</p>}
-            <button
-              onClick={handleSave}
-              disabled={submitting}
-              className="btn-primary mt-2 w-full justify-center"
-            >
-              {submitting ? "Saving..." : "Save"}
-            </button>
-          </div>
-        </div>
-      )}
     </section>
   );
 }
