@@ -71,7 +71,7 @@ const useIso = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 type ActionType = "return" | "replacement" | "review" | null;
 
-interface Order {
+export interface Order {
   _id: string;
   name: string;
   email: string;
@@ -91,7 +91,7 @@ interface Order {
 
 interface OrderDetailProps {
   order: Order;
-  setOrder: Dispatch<SetStateAction<Order>>;
+  setOrder: Dispatch<SetStateAction<Order | null>>;
   onReset: () => void;
 }
 
@@ -322,7 +322,12 @@ export default function OrderDetail({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(
           isReview
-            ? { orderID: order._id, rating, comment: comment.trim(), uploadedUrls }
+            ? {
+                orderID: order._id,
+                rating,
+                comment: comment.trim(),
+                uploadedUrls,
+              }
             : {
                 orderID: order._id,
                 action,
@@ -337,15 +342,20 @@ export default function OrderDetail({
 
       if (!res.ok || !data.success) throw new Error("Request failed");
 
-      setOrder((prev) =>
-        isReview
+      setOrder((prev) => {
+        if (!prev) return prev;
+
+        return isReview
           ? { ...prev, reviewAdded: true }
           : {
               ...prev,
               status:
-                action === "return" ? "return_initiated" : "replacement_initiated",
-            }
-      );
+                action === "return"
+                  ? "return_initiated"
+                  : "replacement_initiated",
+            };
+      });
+
       setSubmitted(true);
     } catch (err) {
       console.error(err);
@@ -502,7 +512,9 @@ export default function OrderDetail({
             >
               {action === "review"
                 ? "Review submitted"
-                : `${action === "return" ? "Return" : "Replacement"} request submitted`}
+                : `${
+                    action === "return" ? "Return" : "Replacement"
+                  } request submitted`}
             </h2>
             <p
               data-success
@@ -526,7 +538,10 @@ export default function OrderDetail({
         ) : (
           <>
             {/* summary */}
-            <section data-card className={`${CARD} mb-6 p-[clamp(20px,4vw,32px)]`}>
+            <section
+              data-card
+              className={`${CARD} mb-6 p-[clamp(20px,4vw,32px)]`}
+            >
               <div className="mb-6 flex items-start justify-between gap-4">
                 <div className="min-w-0">
                   <p className="mb-2 text-[10px] uppercase tracking-[0.18em] text-(color:--text-muted)">
@@ -579,8 +594,14 @@ export default function OrderDetail({
                       onClick={() => setAction(opt.key)}
                       onPointerMove={(e) => {
                         const r = e.currentTarget.getBoundingClientRect();
-                        e.currentTarget.style.setProperty("--mx", `${e.clientX - r.left}px`);
-                        e.currentTarget.style.setProperty("--my", `${e.clientY - r.top}px`);
+                        e.currentTarget.style.setProperty(
+                          "--mx",
+                          `${e.clientX - r.left}px`
+                        );
+                        e.currentTarget.style.setProperty(
+                          "--my",
+                          `${e.clientY - r.top}px`
+                        );
                       }}
                       className={`${CARD} group relative overflow-hidden p-5 text-left transition-colors duration-300 hover:border-(color:--border-highlight) focus-visible:outline-2 focus-visible:outline-[#42BFFF]/60`}
                     >
