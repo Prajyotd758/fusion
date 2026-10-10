@@ -457,7 +457,7 @@ export default function OrderDetail({
       </div>
 
       {/* nav */}
-      <nav
+      {/* <nav
         data-nav
         className="sticky top-0 z-40 border-b border-(color:--border-subtle) bg-(--bg-primary)/70 backdrop-blur-md"
       >
@@ -478,7 +478,7 @@ export default function OrderDetail({
             </button>
           )}
         </div>
-      </nav>
+      </nav> */}
 
       <main className="relative mx-auto max-w-3xl px-6 py-[clamp(32px,6vw,72px)]">
         {submitted ? (
