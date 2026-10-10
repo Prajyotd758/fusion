@@ -388,7 +388,6 @@ export default function Arceus() {
             AirGrip gives you precise control in your hand, while Arceus lets
             you interact with your computer through natural voice and AI.
             <br />
-            Be the first to know when it launches.
           </p>
 
           <div data-fade className="mt-10 flex flex-wrap items-center gap-8">
