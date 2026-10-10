@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { magnetic } from "../../lib/magnetic";
 import GlowButton from "../GlobalButton";
+import { useRouter } from "next/navigation";
 
 if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 const useIso = typeof window !== "undefined" ? useLayoutEffect : useEffect;
@@ -111,13 +112,13 @@ function Particles() {
 }
 
 export default function Arceus() {
+  const router = useRouter();
   const root = useRef<HTMLElement>(null);
   const videoWrap = useRef<HTMLDivElement>(null);
   const content = useRef<HTMLDivElement>(null);
   const spot = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(true);
-  const [interested, setInterested] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [email, setEmail] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -308,7 +309,6 @@ export default function Arceus() {
         body: JSON.stringify({ email }),
       });
       if (!res.ok) throw new Error("Request failed");
-      setInterested(true);
       setShowForm(false);
     } catch {
       setError("Something went wrong. Please try again.");
@@ -395,17 +395,15 @@ export default function Arceus() {
             <button
               data-magnetic
               onClick={() => {
-                setShowForm(true);
+                router.push("/buy");
                 setError("");
               }}
-              disabled={interested}
               className="btn-primary"
             >
-              {interested ? "Thanks — we'll notify you ✓" : "Buy now"}
-              {!interested && <span aria-hidden>→</span>}
+              Buy now
             </button>
 
-            <button
+            {/* <button
               data-magnetic
               onClick={toggleVideo}
               className="btn-ghost"
@@ -415,7 +413,7 @@ export default function Arceus() {
                 {playing ? "❚❚" : "▶"}
               </span>
               {playing ? "Pause Demo" : "Watch Demo"}
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

@@ -23,6 +23,7 @@ export default function GlowButton({
 }: Props) {
   const ref = useRef<any>(null);
 
+  // feeds the cursor spotlight (CSS reads --mx / --my)
   const move = (e: PointerEvent) => {
     const el = ref.current as HTMLElement | null;
     if (!el) return;
@@ -35,8 +36,8 @@ export default function GlowButton({
     <>
       <span className="glow-layer" aria-hidden />
       <span className="glow-rim" aria-hidden />
-      <span className="relative z-10 flex items-center gap-3">
-        {icon}
+      <span className="glow-content">
+        {icon && <span className="glow-icon">{icon}</span>}
         {children}
       </span>
     </>

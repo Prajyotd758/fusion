@@ -261,130 +261,174 @@ body {
   inherits: false;
 }
 
+/* ───────── GlowButton (new design) ───────── */
+@property --glow-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes glow-orbit {
+  to {
+    --glow-angle: 360deg;
+  }
+}
+@keyframes glow-shine {
+  from {
+    transform: translateX(0) skewX(-20deg);
+  }
+  to {
+    transform: translateX(520%) skewX(-20deg);
+  }
+}
+
 .glow-btn {
   position: relative;
+  isolation: isolate;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  isolation: isolate;
   overflow: hidden;
-  padding: 18px 36px;
-  border-radius: 1499px;
-  font-size: 15px;
+  white-space: nowrap;
+  cursor: pointer;
+  padding: 0.95rem 1.75rem;
+  border: 0;
+  border-radius: 12px;
+  font-size: 0.9rem;
   font-weight: 500;
+  letter-spacing: 0.01em;
   color: var(--text-primary);
-  background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.07),
-      rgba(255, 255, 255, 0.01)
-    ),
-    var(--bg-glass);
-  backdrop-filter: blur(14px);
+  background: linear-gradient(180deg, var(--bg-elevated), var(--bg-secondary));
   box-shadow: inset 0 0 0 1px var(--border-subtle),
-    0 10px 30px rgba(0, 0, 0, 0.45);
-  transition: --mx 0.35s ease-out, --my 0.35s ease-out, box-shadow 0.5s ease,
-    transform 0.4s ease;
-}
-.glow-btn:hover,
-.glow-btn:focus-visible {
-  transform: translateY(-1px);
-  box-shadow: inset 0 0 0 1px rgba(200, 230, 255, 0.55),
-    0 0 60px rgba(66, 191, 255, 0.28), 0 10px 30px rgba(0, 0, 0, 0.45);
-}
-.glow-btn:disabled {
-  opacity: 0.6;
-  pointer-events: none;
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: --mx 0.35s ease-out, --my 0.35s ease-out,
+    transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
 }
 
-.glow-btn:hover .glow-layer,
-.glow-btn:focus-visible .glow-layer,
-.glow-btn:active .glow-layer {
-  opacity: 1;
-}
-
-.glow-btn:hover span.relative {
-  text-shadow: 0 0 18px rgba(255, 255, 255, 0.6);
-}
-
-/* chromatic rim */
-.glow-btn {
-  box-shadow: 0 0 24px rgba(66, 191, 255, 0.12), 0 10px 30px rgba(0, 0, 0, 0.45); /* replaces the inset border */
-  background: var(--bg-primary);
-}
-.glow-btn:hover,
-.glow-btn:focus-visible {
-  box-shadow: 0 0 40px rgba(86, 140, 255, 0.3), 0 10px 30px rgba(0, 0, 0, 0.45);
-}
-
-.glow-layer {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  opacity: 0;
-  filter: blur(14px) saturate(1.3);
-  transition: opacity 0.5s ease;
-  background: radial-gradient(
-      90px 70px at var(--mx) var(--my),
-      rgba(255, 255, 255, 0.95),
-      transparent 70%
-    ),
-    radial-gradient(
-      120px 60px at calc(100% - var(--mx)) 115%,
-      rgba(66, 191, 255, 0.95),
-      transparent 70%
-    ),
-    radial-gradient(
-      130px 60px at var(--mx) 125%,
-      rgba(155, 114, 255, 0.95),
-      transparent 70%
-    ),
-    radial-gradient(
-      110px 60px at calc(var(--mx) * 0.5 + 25%) 115%,
-      rgba(255, 255, 255, 0.85),
-      transparent 70%
-    ),
-    radial-gradient(
-      180px 40px at var(--mx) -10%,
-      rgba(104, 208, 255, 0.7),
-      transparent 70%
-    );
-}
-.glow-btn:hover .glow-layer,
-.glow-btn:focus-visible .glow-layer {
-  opacity: 1;
-}
-
-/* same rotating gradient border as .btn-primary */
+/* orbiting light that travels the border */
 .glow-rim {
   position: absolute;
   inset: 0;
+  z-index: 2;
   padding: 1px;
   border-radius: inherit;
   pointer-events: none;
+  opacity: 0.5;
   background: conic-gradient(
-    from var(--angle),
-    #42bfff,
-    #568cff,
-    #9b72ff,
-    #42bfff
+    from var(--glow-angle),
+    transparent 0%,
+    transparent 58%,
+    #9b72ff 80%,
+    #68d0ff 97%,
+    #fff 100%
   );
-  animation: spin-angle 4s linear infinite;
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: glow-orbit 6s linear infinite;
+  transition: opacity 0.4s ease;
 }
 
-.glow-btn:hover .glow-rim {
+/* cursor spotlight */
+.glow-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    180px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(66, 191, 255, 0.18),
+    transparent 70%
+  );
+  transition: opacity 0.35s ease;
+}
+
+.glow-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.glow-icon {
+  display: inline-flex;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* light sweep on hover */
+.glow-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -45%;
+  width: 35%;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.12),
+    transparent
+  );
+  transform: skewX(-20deg);
+}
+
+/* accent underline that extends on hover */
+.glow-btn::after {
+  content: "";
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  bottom: 0;
+  height: 1px;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(100deg, #42bfff, #568cff, #9b72ff);
+  opacity: 0.45;
+  transform: scaleX(0.35);
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s;
+}
+
+.glow-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: inset 0 0 0 1px rgba(66, 191, 255, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 14px 40px -14px rgba(66, 191, 255, 0.45);
+}
+.glow-btn:hover:not(:disabled) .glow-rim {
+  opacity: 1;
+  animation-duration: 2.4s;
+}
+.glow-btn:hover:not(:disabled) .glow-layer {
   opacity: 1;
 }
+.glow-btn:hover:not(:disabled) .glow-icon {
+  transform: translateX(3px);
+}
+.glow-btn:hover:not(:disabled)::before {
+  animation: glow-shine 0.9s ease;
+}
+.glow-btn:hover:not(:disabled)::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
 
-/* @media (prefers-reduced-motion: reduce) {
-  .glow-btn,
-  .glow-layer,
-  .glow-rim {
-    transition: none;
-  }
-} */
+.glow-btn:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+}
+.glow-btn:focus-visible {
+  outline: 2px solid rgba(104, 208, 255, 0.65);
+  outline-offset: 3px;
+}
+.glow-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.glow-btn:disabled .glow-rim {
+  animation-play-state: paused;
+  opacity: 0.2;
+}
 
 .feat-card {
   position: relative;

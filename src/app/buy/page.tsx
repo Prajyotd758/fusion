@@ -463,7 +463,7 @@ export default function BuyPage() {
         </div>
       ) : (
         <>
-          <header className="relative">
+          {/* <header className="relative">
             <div className="container-arceus flex h-24 items-center justify-between">
               <Link href="/" data-bx-top className="flex items-center gap-3">
                 <Image
@@ -490,7 +490,7 @@ export default function BuyPage() {
               data-bx-line
               className="absolute inset-x-0 bottom-0 h-px bg-(--border-subtle)"
             />
-          </header>
+          </header> */}
 
           <div className="container-arceus relative grid gap-14 py-16 lg:grid-cols-5 lg:gap-16">
             {/* form */}
