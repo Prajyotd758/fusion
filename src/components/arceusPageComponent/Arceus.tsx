@@ -3,7 +3,7 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import OrbCanvas from "./OrbCanvas";
+import OrbCanvas from "./OrbCanvas1";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -175,6 +175,7 @@ const Cta = ({ big }: { big?: boolean }) => (
     <div className={big ? "ax-mag" : undefined}>
       <a
         className="ax-btn ax-btn-p"
+        // href="https://github.com/Prajyotd758/fusion/releases/download/v1.0.0/arceus_0.1.0_x64_en-US.msi"
         href="https://github.com/Prajyotd758/fusion/releases/download/v1.0.0/arceus_0.1.0_x64_en-US.msi"
         download
       >
@@ -301,7 +302,7 @@ export default function ArceusShowcase() {
       [1, 2, 3, 4].forEach((i) =>
         wl.to(
           ".ax-words",
-          { yPercent: -20 * i, duration: 0.7, ease: "power3.inOut" },
+          { yPercent: -25 * i, duration: 0.7, ease: "power3.inOut" },
           "+=1.3"
         )
       );
