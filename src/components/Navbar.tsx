@@ -318,7 +318,6 @@ export default function Navbar() {
             <a
               data-mitem
               href="/arceus"
-              download
               onClick={() => setOpen(false)}
               className={row}
             >
