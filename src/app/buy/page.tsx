@@ -745,11 +745,12 @@ export default function BuyPage() {
             className="absolute inset-0 bg-[rgba(3,5,8,0.75)] backdrop-blur-md"
           />
           <div data-cf-card className="cmp-wrap relative w-full max-w-md">
-            <div className="cmp-inner p-7 sm:p-8">
+            <div className="cmp-inner relative p-7 sm:p-8">
               <button
+                type="button"
                 onClick={() => setOtpSent(false)}
                 aria-label="Close"
-                className="group absolute right-5 top-5 grid h-9 w-9 place-items-center rounded-full border border-(--border-subtle) bg-(--bg-glass) hover:border-(--border-highlight)"
+                className="group absolute right-5 top-5 z-10 grid h-9 w-9 place-items-center rounded-full border border-(--border-subtle) bg-(--bg-glass) hover:border-(--border-highlight)"
               >
                 <svg
                   width="11"
@@ -759,7 +760,7 @@ export default function BuyPage() {
                   stroke="currentColor"
                   strokeWidth="2.2"
                   strokeLinecap="round"
-                  className="transition-transform duration-500 group-hover:rotate-90"
+                  className="pointer-events-none transition-transform duration-500 group-hover:rotate-90"
                 >
                   <path d="M18 6L6 18M6 6l12 12" />
                 </svg>
@@ -826,12 +827,14 @@ export default function BuyPage() {
       )}
 
       {loading && <Loader />}
-      <ErrorModal
-        open={error.visible}
-        onClose={() => setError({ visible: false, title: "", message: "" })}
-        title={error.title}
-        message={error.message}
-      />
+      {error.visible && (
+        <ErrorModal
+          open={error.visible}
+          onClose={() => setError({ visible: false, title: "", message: "" })}
+          title={error.title}
+          message={error.message}
+        />
+      )}
     </div>
   );
 }
