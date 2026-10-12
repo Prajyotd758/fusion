@@ -8,8 +8,6 @@ import {
   useRef,
   useState,
 } from "react";
-import Link from "next/link";
-import Image from "next/image";
 import gsap from "gsap";
 //
 import { getStatusMeta } from "../../../lib/mockApi";
