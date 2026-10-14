@@ -28,7 +28,6 @@ const REVIEWS: Review[] = [
     review:
       "Love the design. It stands out from other products and feels great in hand.",
   },
-  { rating: 4, review: "product is good" },
 ];
 const IMAGES = ["/review.jpeg"];
 const SCORE = 4.1;
@@ -263,7 +262,7 @@ export default function ReviewsSection() {
           </p>
         </div>
 
-        {/* score */}
+        {/* score
         <div data-score className="cmp-wrap mb-6">
           <div className="cmp-inner flex flex-col gap-8 p-8 sm:p-10 md:flex-row md:items-center md:justify-between">
             <div className="flex items-center gap-6">
@@ -304,10 +303,10 @@ export default function ReviewsSection() {
               <span className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-30 bg-(image:--accent-gradient) transition-transform duration-500 group-hover:scale-x-100" />
             </button>
           </div>
-        </div>
+        </div> */}
 
         {/* images */}
-        <div
+        {/* <div
           ref={panel}
           style={{ height: 0, opacity: 0 }}
           className="overflow-hidden"
@@ -332,7 +331,7 @@ export default function ReviewsSection() {
               ))}
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* reviews */}
         <div className="grid gap-4 md:grid-cols-3 md:gap-5">
@@ -345,7 +344,7 @@ export default function ReviewsSection() {
             >
               <div className="relative z-10 flex h-full flex-col">
                 <div className="mb-8 flex items-start justify-between">
-                  <Stars n={r.rating} />
+                  {/* <Stars n={r.rating} /> */}
                   <span className="eyebrow text-(--text-muted)">
                     {String(i + 1).padStart(2, "0")}
                   </span>

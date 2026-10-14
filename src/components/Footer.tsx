@@ -13,7 +13,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 const useIso = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
-type Key = "contact" | "email" | "privacy" | "terms" | "refund" | "shipping";
+type Key = "contact" | "privacy" | "terms" | "refund" | "shipping";
 
 const MODAL_CONTENT = {
   contact: {
@@ -31,22 +31,16 @@ const MODAL_CONTENT = {
               <p>arceus.in.service@gmail.com</p>
             </div>
           </div>
+          <div className="flex items-start gap-3">
+            <span className="text-lg">📧</span>
+            <div>
+              <p className="font-medium text-(--text-primary)">
+                Contact or Whatsapp
+              </p>
+              <p>+91 8788285860</p>
+            </div>
+          </div>
         </div>
-      </div>
-    ),
-  },
-  email: {
-    title: "Email Us",
-    content: (
-      <div className="text-sm text-(--text-secondary) space-y-3">
-        <p>For any queries, complaints, or feedback, drop us an email at:</p>
-        <a
-          href="mailto:arceus.in.service@gmail.com"
-          className="block font-medium text-(--text-primary) text-base"
-        >
-          arceus.in.service@gmail.com
-        </a>
-        <p>We typically respond within 24 business hours.</p>
       </div>
     ),
   },
@@ -110,26 +104,58 @@ const MODAL_CONTENT = {
     title: "Refund Policy",
     content: (
       <div className="text-sm text-(--text-secondary) space-y-3 leading-relaxed">
-        <p>Your satisfaction is our priority. Here's our refund policy:</p>
         <p>
-          <strong className="text-(--text-primary)">5-Day Guarantee:</strong> If
-          you're not satisfied, contact us within 5 days of delivery for a full
-          refund.
+          Please review our refund policy carefully before making a purchase.
         </p>
+
         <p>
-          <strong className="text-(--text-primary)">Process:</strong> Email us
-          at refunds@yourbrand.com with your order ID. We'll initiate the refund
-          within 3–5 business days.
+          <strong className="text-(--text-primary)">No Refund Policy:</strong>{" "}
+          We do not offer refunds for general purchases, change of mind, or
+          personal preferences. Refunds are only considered if the product
+          arrives damaged or is defective.
         </p>
+
         <p>
-          <strong className="text-(--text-primary)">Condition:</strong> Products
-          must be returned in their original packaging. Return shipping is free
-          for defective items.
+          <strong className="text-(--text-primary)">
+            Damaged or Defective Products:
+          </strong>{" "}
+          If your product arrives damaged or is not working properly, please
+          contact us at{" "}
+          <a
+            href="mailto:arceus.in.service@gmail.com"
+            className="text-(--accent-blue) hover:underline"
+          >
+            arceus.in.service@gmail.com
+          </a>
+          .
         </p>
+
         <p>
-          <strong className="text-(--text-primary)">Refund Method:</strong>{" "}
-          Refunds are credited to the original payment method or via bank
-          transfer for COD orders.
+          <strong className="text-(--text-primary)">
+            How to Request a Refund:
+          </strong>{" "}
+          Email us with your order details and either attach clear photos
+          showing the damage or explain the issue you are experiencing with the
+          product. Our team will review your request and contact you regarding
+          the next steps.
+        </p>
+
+        <p>
+          <strong className="text-(--text-primary)">Refund Approval:</strong>{" "}
+          Refunds are only available for verified damaged or defective products
+          and are subject to review and approval by our team.
+        </p>
+
+        <p>
+          <strong className="text-(--text-primary)">Contact Us:</strong> For
+          refund requests or product-related issues, email{" "}
+          <a
+            href="mailto:arceus.in.service@gmail.com"
+            className="text-(--accent-blue) hover:underline"
+          >
+            arceus.in.service@gmail.com
+          </a>
+          .
         </p>
       </div>
     ),
@@ -161,7 +187,6 @@ const MODAL_CONTENT = {
 
 const LINKS: { key: Key; label: string }[] = [
   { key: "contact", label: "Contact" },
-  { key: "email", label: "Email" },
   { key: "privacy", label: "Privacy Policy" },
   { key: "terms", label: "Terms" },
   { key: "refund", label: "Refund Policy" },

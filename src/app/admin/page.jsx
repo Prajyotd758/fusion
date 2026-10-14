@@ -28,7 +28,7 @@ function LoginScreen({ onLogin }) {
     e.preventDefault()
     setLoading(true); setError('')
     await new Promise(r => setTimeout(r, 800))
-    if (form.contact === 'admin' && form.password === 'admin123') {
+    if (form.contact === 'prajyot' && form.password === 'Prajyot131120') {
       onLogin()
     } else {
       setError('Invalid credentials. Try admin / admin123')
