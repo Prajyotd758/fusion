@@ -22,7 +22,12 @@ const useIso = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 // ---- edit product data here ----
 const PRODUCT = {
   name: "AirGrip",
-  image: "/airgrip-front.png",
+  images: [
+    { src: "/left.png", alt: "AirGrip front view" },
+    { src: "/front.png", alt: "AirGrip side view" },
+    { src: "/right.png", alt: "AirGrip texture close-up" },
+    { src: "/back.png", alt: "AirGrip with USB dongle" },
+  ],
   blurb:
     "Handheld air mouse with a push-to-talk button for Arceus voice control.",
   price: 1499,
@@ -101,6 +106,35 @@ export default function BuyPage() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Errors>({});
+
+  const [active, setActive] = useState(0);
+  const firstImg = useRef(true);
+
+  useEffect(() => {
+    if (firstImg.current) {
+      firstImg.current = false;
+      return;
+    }
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const el = root.current?.querySelector(`[data-img="${active}"]`);
+    if (el)
+      gsap.fromTo(
+        el,
+        { scale: 1.08, filter: "blur(10px)" },
+        {
+          scale: 1,
+          filter: "blur(0px)",
+          duration: 1,
+          ease: "expo.out",
+          clearProps: "filter",
+        }
+      );
+    gsap.fromTo(
+      "[data-thumb-ring]",
+      { opacity: 0, scale: 0.9 },
+      { opacity: 1, scale: 1, duration: 0.6, ease: "expo.out" }
+    );
+  }, [active]);
 
   const validate = (): Errors => {
     const e: Errors = {};
@@ -247,13 +281,13 @@ export default function BuyPage() {
           .from(
             "[data-sum-i]",
             {
-              x: 24,
+              y: 20,
               opacity: 0,
               filter: "blur(6px)",
               stagger: 0.09,
               duration: 1,
             },
-            1.4
+            1.2
           );
         if (window.matchMedia("(hover:hover) and (pointer:fine)").matches)
           off = magnetic(gsap.utils.toArray("[data-magnetic]"), 0.25);
@@ -462,273 +496,323 @@ export default function BuyPage() {
           </div>
         </div>
       ) : (
-        <>
-          {/* <header className="relative">
-            <div className="container-arceus flex h-24 items-center justify-between">
-              <Link href="/" data-bx-top className="flex items-center gap-3">
+        <div className="container-arceus relative grid gap-12 py-16 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+          {/* LEFT: gallery (sticky, bigger) */}
+          <div data-sum className="lg:sticky lg:top-8 lg:self-start">
+            <div className="relative aspect-4/5 overflow-hidden rounded-2xl border border-(--border-subtle) bg-(--bg-secondary)">
+              {PRODUCT.images.map((im, i) => (
                 <Image
-                  src="/logo.png"
-                  alt="Arceus logo"
-                  width={44}
-                  height={44}
-                  priority
+                  key={im.src}
+                  data-img={i}
+                  src={im.src}
+                  alt={im.alt}
+                  fill
+                  sizes="(min-width:1024px) 55vw, 100vw"
+                  priority={i === 0}
+                  className={`object-cover transition-opacity duration-700 ${
+                    i === active ? "z-10 opacity-100" : "opacity-0"
+                  }`}
                 />
-                <span className="text-[26px] tracking-[-0.02em]">arceus</span>
-              </Link>
-              <span
-                data-bx-top
-                className="eyebrow flex items-center gap-3 rounded-full border border-(--border-subtle) bg-(--bg-glass) px-5 py-2.5 text-(--text-secondary)"
-              >
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-(--status-success) opacity-70" />
-                  <span className="relative h-2 w-2 rounded-full bg-(--status-success)" />
-                </span>
-                Secure Checkout
+              ))}
+              <span className="eyebrow absolute bottom-4 left-4 z-20 rounded-full border border-(--border-subtle) bg-(--bg-glass) px-3 py-1 text-(--text-secondary)">
+                {String(active + 1).padStart(2, "0")} /{" "}
+                {String(PRODUCT.images.length).padStart(2, "0")}
               </span>
             </div>
-            <span
-              data-bx-line
-              className="absolute inset-x-0 bottom-0 h-px bg-(--border-subtle)"
-            />
-          </header> */}
-
-          <div className="container-arceus relative grid gap-14 py-16 lg:grid-cols-5 lg:gap-16">
-            {/* form */}
-            <div className="lg:col-span-3">
-              <div className="mb-6 flex items-center gap-4">
-                <span data-eline className="h-px w-12 bg-(--accent-blue)" />
-                <p className="eyebrow text-(--text-muted)">Checkout</p>
-              </div>
-              <h1 className="text-[clamp(36px,4.6vw,60px)] font-medium leading-[1.04] tracking-[-0.03em]">
-                <span className={mask}>
-                  <span data-h className="text-fade inline-block">
-                    Complete
-                  </span>
-                </span>
-                <span className={mask}>
-                  <span data-h className="text-shimmer inline-block">
-                    your order
-                  </span>
-                </span>
-              </h1>
-              <p
-                data-sub
-                className="mb-10 mt-5 text-sm text-(--text-secondary)"
-              >
-                Fill in your details to place the order.
-              </p>
-
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                  <Field
-                    label="Full Name"
-                    name="name"
-                    placeholder="John doe"
-                    form={form}
-                    setForm={setForm}
-                    errors={errors}
-                    setErrors={setErrors}
+            <div className="mt-4 grid grid-cols-4 gap-3 sm:gap-4">
+              {PRODUCT.images.map((im, i) => (
+                <button
+                  key={im.src}
+                  type="button"
+                  aria-label={`View ${im.alt}`}
+                  aria-pressed={i === active}
+                  onClick={() => setActive(i)}
+                  className={`relative aspect-square overflow-hidden rounded-xl border transition-all duration-300 ${
+                    i === active
+                      ? "border-(--border-highlight) shadow-[0_0_20px_rgba(66,191,255,0.18)]"
+                      : "border-(--border-subtle) opacity-60 hover:opacity-100"
+                  }`}
+                >
+                  <Image
+                    src={im.src}
+                    alt=""
+                    fill
+                    sizes="120px"
+                    className="object-cover"
                   />
-                  <Field
-                    label="Email"
-                    name="email"
-                    type="email"
-                    placeholder="john@email.com"
-                    form={form}
-                    setForm={setForm}
-                    errors={errors}
-                    setErrors={setErrors}
-                  />
-                </div>
-                <Field
-                  label="Phone Number"
-                  name="phone"
-                  type="tel"
-                  length={10}
-                  placeholder="9876543210"
-                  form={form}
-                  setForm={setForm}
-                  errors={errors}
-                  setErrors={setErrors}
-                />
-                <Field
-                  label="Delivery Address"
-                  name="address"
-                  placeholder="Flat / House no, Street, Area"
-                  form={form}
-                  setForm={setForm}
-                  errors={errors}
-                  setErrors={setErrors}
-                />
-                <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
-                  <Field
-                    label="City"
-                    name="city"
-                    placeholder="Mumbai"
-                    form={form}
-                    setForm={setForm}
-                    errors={errors}
-                    setErrors={setErrors}
-                  />
-                  <Field
-                    label="State"
-                    name="state"
-                    placeholder="Maharashtra"
-                    form={form}
-                    setForm={setForm}
-                    errors={errors}
-                    setErrors={setErrors}
-                  />
-                  <Field
-                    label="Pincode"
-                    name="pincode"
-                    placeholder="400001"
-                    length={6}
-                    form={form}
-                    setForm={setForm}
-                    errors={errors}
-                    setErrors={setErrors}
-                  />
-                </div>
-
-                <div data-bx>
-                  <p className="eyebrow mb-3 text-(--text-muted)">
-                    Payment Method
-                  </p>
-                  <div className="grid grid-cols-2 gap-3">
-                    <button
-                      type="button"
-                      aria-pressed
-                      className="relative flex items-center gap-4 rounded-xl border border-(--border-highlight) bg-(--bg-elevated) p-4 text-left shadow-[0_0_30px_rgba(66,191,255,0.12)]"
-                    >
-                      <svg
-                        viewBox="0 0 24 24"
-                        className="h-6 w-6 text-(--accent-blue-bright)"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M3 7h18v10H3zM12 9.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z" />
-                      </svg>
-                      <span className="text-sm font-medium">
-                        Cash on Delivery
-                      </span>
-                      <span className="absolute right-4 top-4 h-2 w-2 rounded-full bg-(--accent-blue) shadow-[0_0_8px_var(--accent-blue)]" />
-                    </button>
-                  </div>
-                </div>
-
-                <div data-bx data-magnetic className="inline-block pt-2">
-                  <GlowButton
-                    type="submit"
-                    onClick={() => purchase(PRODUCT.price)}
-                  >
-                    Continue →
-                  </GlowButton>
-                </div>
-              </form>
+                  {i === active && (
+                    <span
+                      data-thumb-ring
+                      className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-(--accent-blue)"
+                    />
+                  )}
+                </button>
+              ))}
             </div>
+          </div>
 
-            {/* summary */}
-            <div className="lg:col-span-2">
-              <div data-sum className="cmp-wrap sticky top-8">
-                <div className="cmp-inner p-6 sm:p-8">
-                  <div
-                    data-sum-i
-                    className="mb-6 flex items-center justify-between"
-                  >
-                    <h2 className="eyebrow text-(--text-secondary)">
-                      Order Summary
-                    </h2>
-                    <span className="eyebrow text-(--text-muted)">
-                      Qty {PRODUCT.qty}
-                    </span>
-                  </div>
-                  <div
-                    data-sum-i
-                    className="flex gap-5 border-b border-(--border-subtle) pb-6"
-                  >
-                    <div>
-                      <p className="text-lg font-medium tracking-[-0.01em]">
-                        {PRODUCT.name}
-                      </p>
-                      <p className="mt-1 text-sm leading-relaxed text-(--text-secondary)">
-                        {PRODUCT.blurb}
-                      </p>
-                    </div>
-                  </div>
-                  <ul
-                    data-sum-i
-                    className="space-y-2.5 border-b border-(--border-subtle) py-6"
-                  >
-                    {PRODUCT.perks.map((p) => (
-                      <li
-                        key={p}
-                        className="flex items-start gap-3 text-sm text-(--text-secondary)"
-                      >
-                        <svg
-                          viewBox="0 0 24 24"
-                          className="mt-0.5 h-4 w-4 shrink-0 text-(--status-success)"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="M5 12.5l4.5 4.5L19 7.5" />
-                        </svg>
-                        {p}
-                      </li>
-                    ))}
-                  </ul>
-                  <div
-                    data-sum-i
-                    className="space-y-3 border-b border-(--border-subtle) py-6 text-sm"
-                  >
-                    <div className="flex justify-between">
-                      <span className="text-(--text-secondary)">Price</span>
-                      <span>{inr(PRODUCT.price)}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-(--text-secondary)">Shipping</span>
-                      <span className="font-medium text-(--status-success)">
-                        Free
-                      </span>
-                    </div>
-                  </div>
-                  <div
-                    data-sum-i
-                    className="flex items-center justify-between pt-6"
-                  >
-                    <span className="font-medium">Total</span>
-                    <span className="text-3xl font-medium tracking-[-0.03em] text-fade">
-                      {inr(PRODUCT.price * PRODUCT.qty)}
-                    </span>
-                  </div>
-                  <p
-                    data-sum-i
-                    className="eyebrow mt-6 flex items-center justify-center gap-2 rounded-xl border border-(--border-subtle) bg-(--bg-glass) p-3 text-(--text-muted)"
+          {/* RIGHT: heading → summary → form */}
+          <div>
+            <div className="mb-6 flex items-center gap-4">
+              <span data-eline className="h-px w-12 bg-(--accent-blue)" />
+              <p className="eyebrow text-(--text-muted)">Checkout</p>
+            </div>
+            <h1 className="text-[clamp(36px,4.6vw,60px)] font-medium leading-[1.04] tracking-[-0.03em]">
+              <span className={mask}>
+                <span data-h className="text-fade inline-block">
+                  Complete
+                </span>
+              </span>
+              <span className={mask}>
+                <span data-h className="text-shimmer inline-block">
+                  your order
+                </span>
+              </span>
+            </h1>
+            <p data-sub className="mb-10 mt-5 text-sm text-(--text-secondary)">
+              Fill in your details to place the order.
+            </p>
+
+            {/* form */}
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                <Field
+                  label="Full Name"
+                  name="name"
+                  placeholder="John doe"
+                  form={form}
+                  setForm={setForm}
+                  errors={errors}
+                  setErrors={setErrors}
+                />
+                <Field
+                  label="Email"
+                  name="email"
+                  type="email"
+                  placeholder="john@email.com"
+                  form={form}
+                  setForm={setForm}
+                  errors={errors}
+                  setErrors={setErrors}
+                />
+              </div>
+              <Field
+                label="Phone Number"
+                name="phone"
+                type="tel"
+                length={10}
+                placeholder="9876543210"
+                form={form}
+                setForm={setForm}
+                errors={errors}
+                setErrors={setErrors}
+              />
+              <Field
+                label="Delivery Address"
+                name="address"
+                placeholder="Flat / House no, Street, Area"
+                form={form}
+                setForm={setForm}
+                errors={errors}
+                setErrors={setErrors}
+              />
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
+                <Field
+                  label="City"
+                  name="city"
+                  placeholder="Mumbai"
+                  form={form}
+                  setForm={setForm}
+                  errors={errors}
+                  setErrors={setErrors}
+                />
+                <Field
+                  label="State"
+                  name="state"
+                  placeholder="Maharashtra"
+                  form={form}
+                  setForm={setForm}
+                  errors={errors}
+                  setErrors={setErrors}
+                />
+                <Field
+                  label="Pincode"
+                  name="pincode"
+                  placeholder="400001"
+                  length={6}
+                  form={form}
+                  setForm={setForm}
+                  errors={errors}
+                  setErrors={setErrors}
+                />
+              </div>
+
+              <div data-bx>
+                <p className="eyebrow mb-3 text-(--text-muted)">
+                  Payment Method
+                </p>
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  <button
+                    type="button"
+                    aria-pressed
+                    className="relative flex items-center gap-4 rounded-xl border border-(--border-highlight) bg-(--bg-elevated) p-4 text-left shadow-[0_0_30px_rgba(66,191,255,0.12)]"
                   >
                     <svg
                       viewBox="0 0 24 24"
-                      className="h-4 w-4"
+                      className="h-6 w-6 text-(--accent-blue-bright)"
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="1.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     >
-                      <path d="M12 3l8 3v6c0 4.5-3.2 8-8 9-4.8-1-8-4.5-8-9V6zM9 12l2 2 4-4" />
+                      <path d="M3 7h18v10H3zM12 9.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z" />
                     </svg>
-                    Safe &amp; secure checkout
-                  </p>
+                    <span className="text-sm font-medium">
+                      Cash on Delivery
+                    </span>
+                    <span className="absolute right-4 top-4 h-2 w-2 rounded-full bg-(--accent-blue) shadow-[0_0_8px_var(--accent-blue)]" />
+                  </button>
+
+                  <button
+                    type="button"
+                    disabled
+                    aria-disabled
+                    className="relative flex cursor-not-allowed items-center gap-4 rounded-xl border border-(--border-subtle) bg-(--bg-secondary) p-4 text-left opacity-60"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="h-6 w-6 text-(--text-muted)"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M3 6h18v12H3zM3 10h18M7 15h3" />
+                    </svg>
+                    <span>
+                      <span className="block text-sm font-medium">
+                        Online Payment
+                      </span>
+                      <span className="eyebrow mt-1 block text-(--text-muted)">
+                        UPI · Cards
+                      </span>
+                    </span>
+                  </button>
                 </div>
+                <p className="mt-3 text-xs text-(--text-muted)">
+                  Online payments are temporarily unavailable. Please use Cash
+                  on Delivery.
+                </p>
+              </div>
+
+              <div data-bx data-magnetic className="inline-block pt-2">
+                <GlowButton
+                  type="submit"
+                  onClick={() => purchase(PRODUCT.price)}
+                >
+                  Continue →
+                </GlowButton>
+              </div>
+            </form>
+
+            {/* summary */}
+            <div data-bx className="cmp-wrap mt-10">
+              <div className="cmp-inner p-6 sm:p-8">
+                <div
+                  data-sum-i
+                  className="mb-6 flex items-center justify-between"
+                >
+                  <h2 className="eyebrow text-(--text-secondary)">
+                    Order Summary
+                  </h2>
+                  <span className="eyebrow text-(--text-muted)">
+                    Qty {PRODUCT.qty}
+                  </span>
+                </div>
+                <div
+                  data-sum-i
+                  className="flex gap-5 border-b border-(--border-subtle) pb-6"
+                >
+                  <div>
+                    <p className="text-lg font-medium tracking-[-0.01em]">
+                      {PRODUCT.name}
+                    </p>
+                    <p className="mt-1 text-sm leading-relaxed text-(--text-secondary)">
+                      {PRODUCT.blurb}
+                    </p>
+                  </div>
+                </div>
+                <ul
+                  data-sum-i
+                  className="space-y-2.5 border-b border-(--border-subtle) py-6"
+                >
+                  {PRODUCT.perks.map((p) => (
+                    <li
+                      key={p}
+                      className="flex items-start gap-3 text-sm text-(--text-secondary)"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        className="mt-0.5 h-4 w-4 shrink-0 text-(--status-success)"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M5 12.5l4.5 4.5L19 7.5" />
+                      </svg>
+                      {p}
+                    </li>
+                  ))}
+                </ul>
+                <div
+                  data-sum-i
+                  className="space-y-3 border-b border-(--border-subtle) py-6 text-sm"
+                >
+                  <div className="flex justify-between">
+                    <span className="text-(--text-secondary)">Price</span>
+                    <span>{inr(PRODUCT.price)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-(--text-secondary)">Shipping</span>
+                    <span className="font-medium text-(--status-success)">
+                      Free
+                    </span>
+                  </div>
+                </div>
+                <div
+                  data-sum-i
+                  className="flex items-center justify-between pt-6"
+                >
+                  <span className="font-medium">Total</span>
+                  <span className="text-3xl font-medium tracking-[-0.03em] text-fade">
+                    {inr(PRODUCT.price * PRODUCT.qty)}
+                  </span>
+                </div>
+                <p
+                  data-sum-i
+                  className="eyebrow mt-6 flex items-center justify-center gap-2 rounded-xl border border-(--border-subtle) bg-(--bg-glass) p-3 text-(--text-muted)"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M12 3l8 3v6c0 4.5-3.2 8-8 9-4.8-1-8-4.5-8-9V6zM9 12l2 2 4-4" />
+                  </svg>
+                  Safe &amp; secure checkout
+                </p>
               </div>
             </div>
           </div>
-        </>
+        </div>
       )}
 
       {/* confirm modal */}

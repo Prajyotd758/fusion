@@ -1,5 +1,11 @@
 "use client";
-import { useEffect, useLayoutEffect, useRef, type PointerEvent } from "react";
+import {
+  useState,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  type PointerEvent,
+} from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -269,6 +275,8 @@ export default function FeaturesSection() {
           </p>
         </div>
 
+        <FeatureVideo />
+
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6 lg:gap-5">
           {FEATURES.map((f, i) => (
             <Card key={f.title} f={f} i={i} />
@@ -276,5 +284,135 @@ export default function FeaturesSection() {
         </div>
       </div>
     </section>
+  );
+}
+
+const TEXTURE_POINTS = [
+  {
+    t: "Star-Inspired Finish",
+    d: "A distinctive black texture that catches the light like a field of stars.",
+  },
+  {
+    t: "Distinctive by Design",
+    d: "A unique surface that sets AirGrip apart from conventional computer peripherals.",
+  },
+  {
+    t: "Texture You Can See",
+    d: "Light and shadow reveal the intricate details of its textured finish.",
+  },
+  {
+    t: "Built to Stand Out",
+    d: "A bold, sculpted silhouette paired with a striking surface finish.",
+  },
+  {
+    t: "Function Meets Form",
+    d: "Thoughtful design that gives AirGrip its own visual identity.",
+  },
+];
+
+function FeatureVideo() {
+  const root = useRef<HTMLDivElement>(null);
+  const vid = useRef<HTMLVideoElement>(null);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    if (vid.current && vid.current.readyState >= 3) setReady(true);
+  }, []);
+
+  // start text animations only once the block is revealed
+  useIso(() => {
+    if (!ready) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const ctx = gsap.context(() => {
+      const st = { trigger: root.current, start: "top 80%" };
+      gsap.from("[data-tt] > span > span", {
+        yPercent: 115,
+        duration: 1.1,
+        ease: "expo.out",
+        scrollTrigger: st,
+      });
+      gsap.from("[data-pt]", {
+        y: 28,
+        opacity: 0,
+        filter: "blur(8px)",
+        duration: 1,
+        ease: "expo.out",
+        stagger: 0.12,
+        delay: 0.2,
+        clearProps: "filter",
+        scrollTrigger: st,
+      });
+      gsap.from("[data-pline]", {
+        scaleX: 0,
+        transformOrigin: "left",
+        duration: 1.2,
+        ease: "expo.inOut",
+        stagger: 0.12,
+        delay: 0.2,
+        scrollTrigger: st,
+      });
+    }, root);
+    return () => ctx.revert();
+  }, [ready]);
+
+  return (
+    <div
+      ref={root}
+      className={`relative mb-16 flex flex-col overflow-hidden rounded-2xl border border-(--border-subtle) bg-(--bg-secondary) transition-[opacity,transform] duration-1000 ease-out lg:flex-row lg:items-stretch ${
+        ready ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+      }`}
+    >
+      <div className="relative aspect-[9/16] max-h-[420px] w-full shrink-0 sm:max-w-[240px] lg:aspect-auto lg:max-h-none lg:w-[300px]">
+        <video
+          ref={vid}
+          src="/output.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          onCanPlay={() => setReady(true)}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      </div>
+
+      <div className="flex flex-1 flex-col justify-center p-7 sm:p-10 lg:p-12">
+        <p className="eyebrow mb-4 text-(--text-muted)">Surface</p>
+        <h3
+          data-tt
+          className="mb-8 text-[clamp(28px,3vw,44px)] font-medium leading-[1.08] tracking-[-0.03em]"
+        >
+          <span className="block overflow-hidden pb-[0.08em]">
+            <span className="text-fade inline-block">A Universe in</span>
+          </span>
+          <span className="block overflow-hidden pb-[0.08em]">
+            <span className="text-shimmer inline-block">Every Detail</span>
+          </span>
+        </h3>
+
+        <ul>
+          {TEXTURE_POINTS.map((p, i) => (
+            <li key={p.t} className="relative py-4">
+              <span
+                data-pline
+                className="absolute inset-x-0 top-0 h-px bg-(--border-subtle)"
+              />
+              <div data-pt className="flex gap-4">
+                <span className="eyebrow pt-1 text-(--text-muted)">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <p className="text-sm leading-relaxed text-(--text-secondary)">
+                  <span className="font-medium text-(--text-primary)">
+                    {p.t}
+                  </span>
+                  {" — "}
+                  {p.d}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }
