@@ -17,13 +17,6 @@ declare global {
   }
 }
 
-export const metadata = {
-  title: "Buy AirGrip Air Mouse",
-  description:
-    "Order the AirGrip gyro air mouse with push-to-talk voice and USB dongle.",
-  alternates: { canonical: "/buy" },
-};
-
 const useIso = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 // ---- edit product data here ----
