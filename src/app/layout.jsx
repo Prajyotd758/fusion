@@ -2,7 +2,29 @@ import "./globals.css";
 import Navbar from "../components/Navbar";
 
 export const metadata = {
-  title: "arceus",
+  metadataBase: new URL("https://arceus.ind.in"),
+  title: {
+    default: "AirGrip Air Mouse | Arceus AI",
+    template: "%s | Arceus",
+  },
+  description:
+    "AirGrip is a gyroscopic USB-dongle air mouse with push-to-talk voice. Arceus is the AI desktop agent for Windows.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: "Arceus",
+    url: "https://arceus.ind.in",
+    images: ["/og.png"],
+  },
+  twitter: { card: "summary_large_image" },
+  robots: { index: true, follow: true },
+};
+
+const orgJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Arceus",
+  url: "https://arceus.ind.in",
 };
 
 export default function RootLayout({ children }) {
@@ -33,6 +55,10 @@ fbq('track', 'PageView');
             src="https://www.facebook.com/tr?id=15492254414992630&ev=PageView&noscript=1"
           />
         </noscript>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
       </head>
       <body>
         <Navbar />

@@ -274,10 +274,11 @@ export default function Arceus() {
       {/* Content */}
       <div className="container-arceus relative z-10 flex min-h-[calc(100svh-97px)] flex-col justify-center pt-8 pb-28">
         <div ref={content} className="max-w-215">
-          <h1
-            aria-label="The Future of Computer Interaction Fits in Your Hand"
-            className="mt-8 text-[clamp(44px,6.4vw,88px)] font-medium leading-[1.02] tracking-[-0.03em]"
-          >
+          <h1 className="mt-8 text-[clamp(44px,6.4vw,88px)] font-medium leading-[1.02] tracking-[-0.03em]">
+            <span className="sr-only">
+              The Future of Computer Interaction Fits in Your Hand. AirGrip air
+              mouse with Arceus AI voice control.
+            </span>
             <span aria-hidden className={line}>
               <Chars text="The Future of" cls="text-fade" />
             </span>
@@ -305,8 +306,9 @@ export default function Arceus() {
             data-fade
             className="mt-5 max-w-120 text-[15px] leading-relaxed text-(--text-secondary) sm:text-base"
           >
-            AirGrip gives you precise control in your hand, while Arceus lets
-            you interact with your computer through natural voice and AI.
+            AirGrip is a gyroscopic air mouse that gives you precise control in
+            your hand, while Arceus lets you control your Windows PC through
+            natural voice and AI.
           </p>
 
           <div data-fade className="mt-10 flex flex-wrap items-center gap-8">

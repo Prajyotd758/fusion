@@ -549,12 +549,17 @@ export default function ArceusShowcase() {
         </div>
         <div className="ax-copy">
           <p className="ax-eyebrow ax-hfade">
-            ARCEUS · VOICE AGENT FOR WINDOWS
+            ARCEUS · AI VOICE AGENT FOR WINDOWS
           </p>
           <h1>
-            <Split t="Speak." />
-            <br />
-            <Split t="It happens." g />
+            <span className="ax-sr-only">
+              Arceus: the AI voice agent for Windows. Speak, and it happens.
+            </span>
+            <span aria-hidden="true">
+              <Split t="Speak." />
+              <br />
+              <Split t="It happens." g />
+            </span>
           </h1>
           <div className="ax-say ax-hfade">
             <span>Say it in</span>
